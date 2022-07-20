@@ -22,7 +22,6 @@ const Search = () => {
       if (search.length < 2) return setCategories([]);
       try {
         getAPI(`search/category?title=${search}`).then((res) => {
-          console.log(res.data)
           setCategories(res.data)
         }).catch(err => {
           setCategories([])
@@ -55,7 +54,6 @@ const Search = () => {
       if (search.length < 2) return setBlogs([]);
       try {
         getAPI(`search/blogs?title=${search}`).then((res) => {
-          console.log(res.data)
           setBlogs(res.data)
         }).catch(err => {
           setBlogs([])
@@ -67,6 +65,22 @@ const Search = () => {
     return () => clearTimeout(delayDebounce)
   }, [search])
 
+  useEffect(() => {
+    const delayDebounce = setTimeout(async () => {
+      if (search.length < 2) return setBlogs([]);
+
+      try {
+        const resblog = await getAPI(`search/blogs?title=${search}`)
+        if (resblog.status === 200 || resblog.status === 304)
+          setBlogs(resblog.data)
+        else setBlogs([])
+      } catch (err) {
+        console.log(err)
+      }
+    }, 1000)
+
+    return () => clearTimeout(delayDebounce)
+  }, [search])
 
   useEffect(() => {
     setSearch('')
