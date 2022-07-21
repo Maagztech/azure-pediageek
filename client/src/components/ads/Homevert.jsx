@@ -14,7 +14,7 @@ const Homevert = () => {
         isdarkMode ? "dark" : "light"
       }`}
     >
-      <div className="container">
+      
         <Hometext />
         {/* <ins
           className="adsbygoogle mt-3"
@@ -33,7 +33,7 @@ const Homevert = () => {
           data-ad-client="ca-pub-3982561798373930"
           data-ad-slot="8226799525"
         ></ins>
-      </div>
+      
     </div>
   );
 };
