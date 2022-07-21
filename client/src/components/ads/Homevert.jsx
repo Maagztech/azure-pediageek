@@ -14,7 +14,7 @@ const Homevert = () => {
         isdarkMode ? "dark" : "light"
       }`}
     >
-      <div className="container bg-light">
+      <div className="container">
         <Hometext />
         {/* <ins
           className="adsbygoogle mt-3"
