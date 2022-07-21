@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Referal from '../components/global/Referal'
 import { Link } from 'react-router-dom'
 import Homevert from '../components/ads/Homevert'
+import Aibox from '../components/global/Aibox'
 
 const Home = () => {
   const { homeBlogs, categories, darkMode } = useSelector((state: RootStore) => state)
@@ -31,12 +32,13 @@ const Home = () => {
 
   return (
     <>
-      <div className={`example pt-1 px-2 mb-1  border border-start-0 border-end-0 d-none d-md-block`} style={{
+
+      <div className={`example pt-1 px-2 mb-1  border border-start-0 border-end-0 `} style={{
         position: 'sticky',
-        display: 'block',
-        overflow: 'hidden',
-        overflowX: 'scroll',
-        touchAction: 'pan-y',
+        display: 'flex',
+        overflow: 'scroll',
+
+        // touchAction: 'pan-y',
         whiteSpace: 'nowrap',
         zIndex: 9,
         top: 50,
@@ -85,6 +87,7 @@ const Home = () => {
 
         </InfiniteScroll>
       </div >
+      <Aibox />
     </>
   )
 }
