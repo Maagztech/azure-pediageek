@@ -58,15 +58,13 @@ const BlogsByCategory = () => {
     <div>
       <Helmetglobal title={`${slug} Blogs`} description={`Blogs from ${slug} category.`} keyword={slug} />
 
-      <div className="example pt-1 px-2 mb-1 border border-start-0 border-end-0 d-none d-md-block" style={{
+      <div className={`example pt-1 px-2 mb-1  border border-start-0 border-end-0`} style={{
         position: 'sticky',
         display: 'block',
-        overflow: 'hidden',
-        overflowX: 'scroll',
-        touchAction: 'pan-y',
+        overflow: 'scroll',
         whiteSpace: 'nowrap',
         zIndex: 9,
-        top: 42,
+        top: 50,
         backgroundColor: isdarkMode ? '#202020' : 'white'
       }}>
         <Link to={`/`} className={`btn btn-tag rounded-pill mx-1 px-2 text-${isdarkMode ? 'white' : 'black'}`} style={{ backgroundColor: isdarkMode ? '#373737' : '#e9e3e3' }} >Home</Link>
