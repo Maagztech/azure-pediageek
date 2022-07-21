@@ -29,7 +29,7 @@ const Homevert = () => {
           className="adsbygoogle mt-2"
           style={{ display: "block" }}
           data-ad-format="fluid"
-          data-ad-layout-key="-6j+dp+1q-5j+bz"
+          data-ad-layout-key="-6g+dr+1a-5p+dx"
           data-ad-client="ca-pub-3982561798373930"
           data-ad-slot="8226799525"
         ></ins>
