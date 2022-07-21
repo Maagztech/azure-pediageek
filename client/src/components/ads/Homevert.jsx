@@ -14,8 +14,9 @@ const Homevert = () => {
         isdarkMode ? "dark" : "light"
       }`}
     >
-      <div className="container">
-        <ins
+      <div className="container bg-light">
+        <Hometext />
+        {/* <ins
           className="adsbygoogle mt-3"
           style={{ display: "block" }}
           data-ad-client="ca-pub-3982561798373930"
@@ -23,7 +24,15 @@ const Homevert = () => {
           data-ad-format="rectangle"
           data-full-width-responsive="false"
         ></ins>
-        <Hometext />
+        <Hometext /> */}
+        <ins
+          className="adsbygoogle mt-2"
+          style={{ display: "block" }}
+          data-ad-format="fluid"
+          data-ad-layout-key="-6j+dp+1q-5j+bz"
+          data-ad-client="ca-pub-3982561798373930"
+          data-ad-slot="8226799525"
+        ></ins>
       </div>
     </div>
   );
