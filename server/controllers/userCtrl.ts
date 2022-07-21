@@ -20,7 +20,6 @@ const userCtrl = {
           about,
         }
       );
-
       res.json({ msg: "Update Success!" });
     } catch (err: any) {
       return res.status(500).json({ msg: err.message });

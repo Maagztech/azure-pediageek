@@ -169,7 +169,7 @@ const Search = () => {
                 }
               </div> : <div className='my-3 text-center'><Loading />
                 <h3>
-                  Enetr your search ....
+                  Enter your search ....
                 </h3>
               </div>
             }
