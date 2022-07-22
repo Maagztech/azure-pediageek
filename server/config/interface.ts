@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 import { Request } from "express";
 
 export interface IUser extends Document {
@@ -109,4 +109,30 @@ export interface IDraft extends Document {
   thumbnail?: string;
   category?: string;
   _doc: object;
+}
+
+export interface IPreferance {
+  _id: Types.ObjectId;
+  title?: string;
+  content?: string;
+  description?: string;
+  thumbnail?: string;
+  category?: string;
+  _doc: object;
+}
+
+export interface ICountry {
+  name: string;
+}
+
+export interface IState {
+  name: string;
+}
+
+export interface ICity {
+  name: string;
+}
+
+export interface IWork {
+  name: string;
 }

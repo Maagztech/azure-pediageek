@@ -40,10 +40,11 @@ export interface IUser extends IUserLogin {
   notice: Boolean;
 }
 
-export interface IPreferance {
-  user: string;
+export interface IPreferance extends IUser {
+  locality: string;
+  city: string;
   country: string;
-  language: string[];
+  languages: string[];
   interests: string[];
   birthday: Date;
   theme: string;
