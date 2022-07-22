@@ -1,60 +1,66 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { createCategory } from "../../redux/actions/categoryAction";
 import { getAPI } from "../../utils/FetchData";
-import { RootStore } from "../../utils/TypeScript";
+import { ICategory, RootStore } from "../../utils/TypeScript";
 
 const Aibox = () => {
     const { categories, auth, darkMode } = useSelector((state: RootStore) => state);
     const { isdarkMode } = darkMode;
     const app = document.getElementById("app");
-    const types = ['image/png', 'image/jpeg'];
     const [categor, setCategor] = useState(categories);
+    const [catlist, setCatlist] = useState<string[]>([]);
     const [catname, setCatname] = useState("");
     const dispatch = useDispatch()
     useEffect(() => {
-        if (auth.access_token)
+        setCategor(categories);
+        if (auth.access_token) {
+
             setTimeout(() => {
                 $('#aimodalb').trigger('click')
-            }, 10000);
+            }, 1000);
+        }
     }, [auth])
     const handleChangeCat = (e: any) => {
         const value = e.target.id;
 
-        if (app)
-            app.style.display = 'none';
-        setCatname(e.target.innerText);
+        setCatlist([e.target.innerText, ...catlist]);
     };
-    const addcat = () => {
-        if (app)
-            app.style.display = 'none';
-        if (auth.access_token) dispatch(createCategory(catname, auth.access_token));
-    };
+
     function showhide() {
         if (app) app.style.display = "block";
     }
-    function close() {
-        if (app) app.style.display = "none";
+    const removeelm = (index) => {
+        setCatlist([
+            ...catlist.slice(0, index),
+            ...catlist.slice(index + 1, catlist.length)
+        ]);
     }
 
-    // useEffect(() => {
-    //     const delayDebounce = setTimeout(async () => {
-    //         try {
-    //             const res = await getAPI(`categoryarray?categor=${catname}`);
-    //             setCategor(res.data);
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     }, -3);
-    //     return () => clearTimeout(delayDebounce);
-    // }, [catname, categories]);
+    useEffect(() => {
+        if (catname.length < 2) { setCategor(categories); return; }
+        const delayDebounce = setTimeout(async () => {
+            try {
+                getAPI(`search/category?title=${catname}`).then((res) => {
+                    console.log(res.data)
+                    setCategor(res.data);
+                }).catch((err) => setCategor([]))
+
+            } catch (err) {
+                console.log(err);
+            }
+        }, 400);
+        return () => clearTimeout(delayDebounce);
+    }, [catname, categories]);
+
     return (
         <>
             <div className="modal fade" id="aimodal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="aimodalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="aimodalLabel">Set Preferance (Minimum 8)</h5>
+                            <h5 className="modal-title" id="aimodalLabel">Set Preferance {catlist.length}/8 selected</h5>
                         </div>
                         <div className="modal-body">
                             <div className="form-group my-3">
@@ -68,49 +74,70 @@ const Aibox = () => {
                                     onFocus={(e) => showhide()}
                                     onChange={(e) => setCatname(e.target.value)}
                                 />
+
                                 <div
-                                    className="container pt-2 px-1 w-100 rounded position-relative"
+                                    className="container pt-2 px-0 w-100 rounded position-relative example"
                                     id="app"
                                     style={{
                                         marginTop: 2,
-                                        background: "#cbcaca",
                                         zIndex: 10,
-                                        maxHeight: "calc(100vh - 100px)",
-                                        maxWidth: 450,
+                                        maxHeight: "calc(100vh - 350px)",
+                                        maxWidth: 500,
                                         overflow: "auto",
                                         paddingBottom: 3,
                                         display: "none",
                                     }}
                                 >
-                                    <span className="btn btn-secondary p-1 position-absolute px-3" style={{ right: 5 }} onClick={e => { close() }}>&times;</span>
-
-                                    {categor.length ?
-                                        <p style={{ color: "black" }}>Select One...</p> : <></>
-                                    }
-                                    {categor.length === 0 ? <button className="btn btn-light py-2 m-1 pb-2" onClick={(e) => addcat()}>
-                                        Add Category
-                                    </button>
+                                    {categor.length === 0 ? <h5 className="text-center">No category mathcing</h5>
                                         :
-                                        categor.map((category) => (
-                                            <span
-                                                className="btn btn-success py-1 m-1"
-                                                key={category._id}
-                                                id={category._id}
-                                                onClick={(e) => {
-                                                    handleChangeCat(e);
-                                                }}
-                                            >
-                                                {category.name}
-                                            </span>
-                                        )
+
+                                        (
+                                            categor.map((category) => (
+                                                <>
+                                                    {
+                                                        !catlist.includes(category.name) ?
+                                                            <span
+                                                                className="btn btn-success py-1 m-1"
+                                                                key={category._id}
+                                                                id={category._id}
+                                                                onClick={(e) => {
+                                                                    handleChangeCat(e);
+                                                                }}
+                                                            >
+                                                                {category.name}
+                                                            </span> : <></>
+                                                    }
+                                                </>
+                                            )
+                                            )
                                         )
                                     }
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
-
-                            <button type="button" className="btn btn-primary"> Save </button>
+                            <div className={`example pt-1 px-2 mb-1  border border-start-0 border-end-0`} style={{
+                                position: 'relative',
+                                display: 'block',
+                                overflow: 'scroll',
+                                whiteSpace: 'nowrap',
+                            }}>
+                                {catlist.map((category, index) => (
+                                    <button key={index} className={`btn btn-tag mx-1 px-2 text-${isdarkMode ? 'white' : 'black'} `} style={{
+                                        backgroundColor: isdarkMode ? '#373737' : '#e9e3e3',
+                                    }}>
+                                        <Link target='_blank' to={`/blogs/${category}`} style={{
+                                            textDecoration: "none",
+                                            textTransform: "capitalize",
+                                        }}
+                                            className={`text-${isdarkMode ? 'white' : 'black'}`}
+                                        >
+                                            {category}</Link>{' '}<i className="fas fa-times" onClick={() => removeelm(index)}></i>
+                                    </button>
+                                ))
+                                }
+                            </div>
+                            <button type="button" className="btn btn-primary d-block"> Save </button>
                         </div>
                     </div>
                 </div>

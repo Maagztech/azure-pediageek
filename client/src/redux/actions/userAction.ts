@@ -21,7 +21,6 @@ export const updateUser =
 
     let url = "";
     try {
-      dispatch({ type: ALERT, payload: { loading: true } });
       if (avatar) {
         const check = checkImage(avatar);
         if (check) return dispatch({ type: ALERT, payload: { errors: check } });
