@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createCategory } from "../../redux/actions/categoryAction";
+import { updateUserPre } from "../../redux/actions/preferanceAction";
+import { ALERT } from "../../redux/types/alertType";
 import { getAPI } from "../../utils/FetchData";
 import { ICategory, RootStore } from "../../utils/TypeScript";
 
@@ -11,21 +13,37 @@ const Aibox = () => {
     const app = document.getElementById("app");
     const [categor, setCategor] = useState(categories);
     const [catlist, setCatlist] = useState<string[]>([]);
+    const [catn, setCatn] = useState<string[]>([]);
     const [catname, setCatname] = useState("");
     const dispatch = useDispatch()
     useEffect(() => {
-        setCategor(categories);
-        if (auth.access_token) {
-
-            setTimeout(() => {
-                $('#aimodalb').trigger('click')
-            }, 1000);
-        }
+        if (auth.access_token)
+            getAPI('ispreferance', auth.access_token).then(res => {
+                if (res.data.open) {
+                    setCategor(categories);
+                    if (auth.access_token) {
+                        setTimeout(() => {
+                            $('#aimodalb').trigger('click')
+                        }, 2000);
+                    }
+                }
+            }).catch(err => {
+                console.log(err.msg)
+            })
     }, [auth])
+
+    const handleSubmit = () => {
+        if (catlist.length < 8)
+            return dispatch({ type: ALERT, payload: { errors: 'Chose minimum 8 from list.' } });
+        dispatch(updateUserPre(catn, catlist, auth))
+        $('#aimodalb').trigger('click')
+        dispatch({ type: ALERT, payload: { success: 'Successfully Updated.' } });
+    };
+
     const handleChangeCat = (e: any) => {
         const value = e.target.id;
-
-        setCatlist([e.target.innerText, ...catlist]);
+        setCatlist([value, ...catlist]);
+        setCatn([e.target.innerText.toLowerCase(), ...catn])
     };
 
     function showhide() {
@@ -35,6 +53,10 @@ const Aibox = () => {
         setCatlist([
             ...catlist.slice(0, index),
             ...catlist.slice(index + 1, catlist.length)
+        ]);
+        setCatn([
+            ...catn.slice(0, index),
+            ...catn.slice(index + 1, catn.length)
         ]);
     }
 
@@ -95,13 +117,17 @@ const Aibox = () => {
                                             categor.map((category) => (
                                                 <>
                                                     {
-                                                        !catlist.includes(category.name) ?
+                                                        !catn.includes(category.name) ?
                                                             <span
                                                                 className="btn btn-success py-1 m-1"
                                                                 key={category._id}
                                                                 id={category._id}
                                                                 onClick={(e) => {
                                                                     handleChangeCat(e);
+                                                                }}
+                                                                style={{
+                                                                    textDecoration: "none",
+                                                                    textTransform: 'capitalize'
                                                                 }}
                                                             >
                                                                 {category.name}
@@ -122,13 +148,12 @@ const Aibox = () => {
                                 overflow: 'scroll',
                                 whiteSpace: 'nowrap',
                             }}>
-                                {catlist.map((category, index) => (
+                                {catn.map((category, index) => (
                                     <button key={index} className={`btn btn-tag mx-1 px-2 text-${isdarkMode ? 'white' : 'black'} `} style={{
                                         backgroundColor: isdarkMode ? '#373737' : '#e9e3e3',
                                     }}>
                                         <Link target='_blank' to={`/blogs/${category}`} style={{
                                             textDecoration: "none",
-                                            textTransform: "capitalize",
                                         }}
                                             className={`text-${isdarkMode ? 'white' : 'black'}`}
                                         >
@@ -137,7 +162,7 @@ const Aibox = () => {
                                 ))
                                 }
                             </div>
-                            <button type="button" className="btn btn-primary d-block"> Save </button>
+                            <button type="button" className="btn btn-primary d-block" onClick={handleSubmit}> Save </button>
                         </div>
                     </div>
                 </div>

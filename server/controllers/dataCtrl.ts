@@ -13,15 +13,26 @@ const dataCtrl = {
       return res.status(400).json({ msg: "Invalid Authentication." });
 
     try {
-      const { locality, state, city, country, birthday, interests, language } =
-        req.body;
+      const { interests, categoryid } = req.body;
 
       await Preferances.findOneAndUpdate(
         { _id: req.user._id },
-        { locality, state, city, country, birthday, interests, language },
+        { interest: interests, categoryid: categoryid },
         { upsert: true, new: true }
       );
-      res.json({ msg: "Update Success!" });
+      return res.status(200).json({ msg: "Updated Successfully." });
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  isPreferance: async (req: IReqAuth, res: Response) => {
+    if (!req.user)
+      return res.status(400).json({ msg: "Invalid Authentication." });
+
+    try {
+      const user = await Preferances.findById(req.user._id);
+      if (user) return res.status(200).json({ open: false });
+      else return res.status(200).json({ open: true });
     } catch (err: any) {
       return res.status(500).json({ msg: err.message });
     }

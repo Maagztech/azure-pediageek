@@ -5,6 +5,7 @@ import dataCtrl from "../controllers/dataCtrl";
 const router = express.Router();
 
 router.post("/preferance", auth, dataCtrl.setPreferance);
+router.get("/ispreferance", auth, dataCtrl.isPreferance);
 router.post("/addcountry", auth, dataCtrl.addcountry);
 router.patch("/searchcountry", auth, dataCtrl.searchcountry);
 router.post("/addstate", auth, dataCtrl.addstate);

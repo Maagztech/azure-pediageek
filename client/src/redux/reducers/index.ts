@@ -11,7 +11,7 @@ import notification from "./notificationReducer";
 import socket from "./socketReducer";
 import draftsUser from "./draftReducer";
 import darkModeReducer from "./darkModeReducer";
-
+import preferance from "./preferanceReducer";
 //import follow from './followReducer'
 export default combineReducers({
   auth,
@@ -26,5 +26,6 @@ export default combineReducers({
   notification,
   draftsUser,
   darkMode: darkModeReducer,
+  preferance,
   // follow
 });

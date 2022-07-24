@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -13,6 +13,7 @@ import NotFound from "../global/NotFound";
 import { updateUser, resetPassword } from "../../redux/actions/userAction";
 import Monetary from "./Monetary";
 import Tick from "./Tick";
+import Helmetglobal from "../global/Helmetglobal";
 
 const UserInfo = () => {
   const initState = {
@@ -64,6 +65,7 @@ const UserInfo = () => {
     <>
 
       <div className={`profile_info position-relative bg-${isdarkMode ? 'dark' : 'light'}`}>
+        <Helmetglobal title={auth.user.name} description={auth.user.about} keyword="social profile" />
         <div className="position-absolute" style={{ right: 3, top: 3 }}>
           <Monetary />
         </div>

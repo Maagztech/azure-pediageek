@@ -40,14 +40,15 @@ export interface IUser extends IUserLogin {
   notice: Boolean;
 }
 
-export interface IPreferance extends IUser {
-  locality: string;
-  city: string;
-  country: string;
-  languages: string[];
+export interface IPreferance {
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
   interests: string[];
-  birthday: Date;
-  theme: string;
+  birthday?: Date;
+  isdark?: Boolean;
 }
 
 export interface IUserProfile extends IUserRegister {

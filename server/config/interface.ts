@@ -112,13 +112,15 @@ export interface IDraft extends Document {
 }
 
 export interface IPreferance {
-  _id: Types.ObjectId;
-  title?: string;
-  content?: string;
-  description?: string;
-  thumbnail?: string;
-  category?: string;
-  _doc: object;
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interest: string[];
+  categoryid: string[];
+  birthday?: Date;
+  isdark?: Boolean;
 }
 
 export interface ICountry {

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 import { IPreferance } from "../config/interface";
 
 const preferanceSchema = new mongoose.Schema({
@@ -12,7 +13,8 @@ const preferanceSchema = new mongoose.Schema({
   state: { type: mongoose.Types.ObjectId, ref: "state" },
   country: { type: mongoose.Types.ObjectId, ref: "country" },
   language: [{ type: mongoose.Types.ObjectId, ref: "user" }],
-  interest: [{ type: mongoose.Types.ObjectId, ref: "category" }],
+  categoryid: [{ type: mongoose.Types.ObjectId, ref: "category" }],
+  interest: [{ type: String }],
   isdark: {
     type: Boolean,
     default: true,

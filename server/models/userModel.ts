@@ -71,6 +71,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    preferance: {
+      type: Boolean,
+      default: false,
+    },
     rf_token: { type: String, select: false },
   },
   {

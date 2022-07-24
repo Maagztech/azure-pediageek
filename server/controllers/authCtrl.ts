@@ -89,7 +89,7 @@ const authCtrl = {
           "Referal Update 🎁🎁.",
           "Hii! " +
             newuser.name +
-            " have joined using your refral link tell him to write his firast blog to earn referal reward both.",
+            " have joined using your refral link tell him to write his first blog to earn referal reward both.",
           "/profile/" + newuser._id
         );
       res.json({ msg: "Account has been activated!" });

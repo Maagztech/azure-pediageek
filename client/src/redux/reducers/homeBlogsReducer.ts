@@ -1,9 +1,9 @@
+import { unique } from "jquery";
 import {
   GET_HOME_BLOGS,
   IGetHomeBlogsType,
   IHomeBlogs,
 } from "../types/blogType";
-
 const initialState = {
   blogs: [],
   total: 0, //total number of pages present in the data base
@@ -15,13 +15,13 @@ const homeBlogsReducer = (
   action: IGetHomeBlogsType
 ): IHomeBlogs => {
   switch (action.type) {
-    case GET_HOME_BLOGS:
+    case GET_HOME_BLOGS: {
       return {
         total: action.payload.total,
         count: state.count + 1,
-        blogs: [...state.blogs, ...action.payload.blogs],
+        blogs: [...new Set([...state.blogs, ...action.payload.blogs])],
       };
-
+    }
     default:
       return state;
   }
