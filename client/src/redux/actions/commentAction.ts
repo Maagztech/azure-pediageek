@@ -18,8 +18,6 @@ import { IComment } from '../../utils/TypeScript'
 import { postAPI, getAPI, patchAPI, deleteAPI } from '../../utils/FetchData'
 import { checkTokenExp } from '../../utils/checkTokenExp'
 
-
-
 export const createComment = (
   data: IComment, token: string
 ) => async(dispatch: Dispatch<IAlertType | ICreateCommentType>) => {
