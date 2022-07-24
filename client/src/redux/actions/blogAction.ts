@@ -61,17 +61,19 @@ export const getHomeBlogs =
       let res;
 
       if (!auth.access_token) {
-        console.log("calleds");
         res = await getAPI(`home/blogs${value}&limit=${limit}`);
         dispatch({
           type: GET_HOME_BLOGS,
           payload: { ...res.data },
         });
       } else {
-        res = await getAPI(
-          `home/signedblogsbysearch${value}&limit=${8}`,
-          auth.access_token
-        );
+        const t = await getAPI("ispreferance", auth.access_token);
+        if (t) res = await getAPI(`home/blogs${value}&limit=${limit}`);
+        else
+          res = await getAPI(
+            `home/signedblogsbysearch${value}&limit=${8}`,
+            auth.access_token
+          );
         dispatch({
           type: GET_HOME_BLOGS,
           payload: { ...res.data },

@@ -17,19 +17,21 @@ const Aibox = () => {
     const [catname, setCatname] = useState("");
     const dispatch = useDispatch()
     useEffect(() => {
-        if (auth.access_token)
-            getAPI('ispreferance', auth.access_token).then(res => {
-                if (res.data.open) {
-                    setCategor(categories);
-                    if (auth.access_token) {
-                        setTimeout(() => {
+        setCategor(categories);
+        if (auth.access_token) {
+            setTimeout(() => {
+                if (auth.access_token)
+                    getAPI('ispreferance', auth.access_token).then(res => {
+                        if (res.data.open) {
                             $('#aimodalb').trigger('click')
-                        }, 2000);
-                    }
-                }
-            }).catch(err => {
-                console.log(err.msg)
-            })
+                        }
+                    }).catch(err => {
+                        console.log(err.msg)
+                    })
+
+            }, 15000);
+        }
+
     }, [auth])
 
     const handleSubmit = () => {
@@ -83,8 +85,7 @@ const Aibox = () => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="aimodalLabel">Set Preferance {catlist.length}/8 selected</h5>
-                            
-
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <div className="form-group my-3">
