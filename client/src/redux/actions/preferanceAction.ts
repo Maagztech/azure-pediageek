@@ -35,6 +35,7 @@ export const updateUserPre =
         type: GET_HOME_BLOGS,
         payload: { ...res.data },
       });
+      dispatch({ type: ALERT, payload: { loading: false } });
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });

@@ -9,7 +9,7 @@ const inti = {
   language: [],
   interests: [],
   isdark: true,
-};
+}; 
 const preferanceReducer = (
   state: IPreferance = inti,
   action: IGetPreferanceType

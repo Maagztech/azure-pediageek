@@ -103,7 +103,7 @@ const Aibox = () => {
                                     style={{
                                         marginTop: 2,
                                         zIndex: 10,
-                                        maxHeight: "calc(100vh - 350px)",
+                                        maxHeight: "calc(100vh -250px)",
                                         maxWidth: 500,
                                         overflow: "auto",
                                         paddingBottom: 3,

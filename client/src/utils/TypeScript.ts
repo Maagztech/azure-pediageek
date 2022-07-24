@@ -38,6 +38,17 @@ export interface IUser extends IUserLogin {
   updatedAt: string;
   _id: string;
   notice: Boolean;
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interests?: string[];
+  birthday?: Date;
+  isdark?: Boolean;
+  gender?: string;
+  working: string;
+  aspire: string;
 }
 
 export interface IPreferance {
@@ -46,7 +57,7 @@ export interface IPreferance {
   state?: string;
   country?: string;
   language?: string[];
-  interests: string[];
+  interests?: string[];
   birthday?: Date;
   isdark?: Boolean;
 }
@@ -54,7 +65,6 @@ export interface IPreferance {
 export interface IUserProfile extends IUserRegister {
   avatar: any;
   about: string;
-  paytm: string;
 }
 
 export interface IUserFollow {

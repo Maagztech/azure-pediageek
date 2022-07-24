@@ -12,7 +12,7 @@ import { checkTokenExp } from "../../utils/checkTokenExp";
 import { IUser } from "../../utils/TypeScript";
 
 export const updateUser =
-  (avatar: File, name: string, paytm: string, about: string, auth: IAuth) =>
+  (avatar: File, name: string, about: string, auth: IAuth) =>
   async (dispatch: Dispatch<IAlertType | IAuthType>) => {
     if (!auth.access_token || !auth.user) return;
 
@@ -24,7 +24,6 @@ export const updateUser =
       if (avatar) {
         const check = checkImage(avatar);
         if (check) return dispatch({ type: ALERT, payload: { errors: check } });
-
         const photo = await imageUpload(avatar);
         url = photo.url;
       }
@@ -35,7 +34,6 @@ export const updateUser =
           access_token: auth.access_token,
           user: {
             ...auth.user,
-            paytm: paytm ? paytm : auth.user.paytm,
             about: about ? about : auth.user.about,
             avatar: url ? url : auth.user.avatar,
             name: name ? name : auth.user.name,
@@ -48,7 +46,6 @@ export const updateUser =
         {
           avatar: url ? url : auth.user.avatar,
           name: name ? name : auth.user.name,
-          paytm: paytm ? paytm : auth.user.paytm,
           about: about ? about : auth.user.about,
         },
         access_token

@@ -105,8 +105,6 @@ const Search = () => {
         </div>
       </nav>
 
-
-
       <>
         <div className="tab-content my-3 position-relative pt-2 px-1 w-100 rounded mt-2" id="nav-tabContent"
           style={{
