@@ -18,7 +18,7 @@ export const updateUserPre =
     const result = await checkTokenExp(auth.access_token, dispatch);
     const access_token = result ? result : auth.access_token;
     try {
-      dispatch({ type: ALERT, payload: { loading: true } });
+      
       const res = await postAPI(
         "preferance",
         {
@@ -35,7 +35,7 @@ export const updateUserPre =
         type: GET_HOME_BLOGS,
         payload: { ...res.data },
       });
-      dispatch({ type: ALERT, payload: { loading: false } });
+     
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
