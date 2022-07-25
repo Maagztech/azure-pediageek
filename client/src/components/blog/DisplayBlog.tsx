@@ -90,12 +90,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           >
             <b>{blog.title}</b>
           </h2>
-
-
           <hr style={{ color: isdarkMode ? 'white' : 'black' }} /><br />
-
-
-
           <div className='ql-snow'>
             <div className='ql-editor p-0' dangerouslySetInnerHTML={{ __html: blog.content }} style={{ fontSize: "18px", color: isdarkMode ? 'white' : 'black' }} />
           </div>
