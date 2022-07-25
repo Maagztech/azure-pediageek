@@ -12,6 +12,7 @@ import Pagination from "../global/Pagination";
 import { createComment, getComments } from "../../redux/actions/commentAction";
 import { getAPI, patchAPI, putAPI } from "../../utils/FetchData";
 import { Timer, Time, TimerOptions } from 'timer-node';
+import Abovepost from "../ads/Adsabovepost";
 
 interface IProps {
   blog: IBlog;
@@ -79,7 +80,11 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   return (
     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       <div style={{ flex: 9 }}>
+
         <div style={{ maxWidth: 850, margin: "20px", minWidth: 250 }}>
+          <div className="container">
+            <Abovepost />
+          </div>
           <h2
             className="text-center my-3 text-capitalize fs-1"
             style={{ color: isdarkMode ? 'white' : 'black', fontSize: 30 }}
