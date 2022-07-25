@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { IBlog, RootStore, IUser, IComment } from "../../utils/TypeScript";
-
+import 'react-quill/dist/quill.snow.css';
 import Input from "../comments/Input";
 import Comments from "../comments/Comments";
 import Loading from "../global/Loading";
 import Pagination from "../global/Pagination";
-
 import { createComment, getComments } from "../../redux/actions/commentAction";
 import { getAPI, patchAPI, putAPI } from "../../utils/FetchData";
 import { Timer, Time, TimerOptions } from 'timer-node';
