@@ -160,6 +160,7 @@ const blogCtrl = {
               let: { user_id: "$user" },
               pipeline: [
                 { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                
                 {
                   $project: {
                     password: 0,
@@ -174,8 +175,8 @@ const blogCtrl = {
           },
           // array -> object
           { $unwind: "$user" },
+          { $match: { $expr: { $eq: ["$user.role", "garnet"] } } },
           // Sorting
-          { $skip: skip },
           { $limit: limit },
           {
             $project: {

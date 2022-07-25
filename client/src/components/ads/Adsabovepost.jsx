@@ -9,13 +9,13 @@ const Abovepost = () => {
   }, []);
 
   return (
-    <div className="container d-md-block">
+    <div className="container bg-light">
     <ins
       className="adsbygoogle"
       style={{ display: "block"}}
       data-ad-client="ca-pub-3982561798373930"
       data-ad-slot="5932249619"
-      data-ad-format="horizontal"
+      data-ad-format="auto"
       data-full-width-responsive="true"
     ></ins>
     </div>
