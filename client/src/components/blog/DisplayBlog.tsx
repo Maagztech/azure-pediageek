@@ -79,8 +79,8 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   return (
     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       <div style={{ flex: 9 }}>
-        <div  style={{ maxWidth: 850, minWidth: 250 }}>
-        <Abovepost />
+        <div style={{ maxWidth: 850, minWidth: 250 }}>
+          {typeof blog.user != 'string' && blog.user.role !== 'user' ? < Abovepost /> : <></>}
           <h2
             className="text-center my-3 text-capitalize fs-1"
             style={{ color: isdarkMode ? "white" : "black", fontSize: 30 }}
@@ -88,7 +88,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
             <b>{blog.title}</b>
           </h2>
           <hr style={{ color: isdarkMode ? "white" : "black" }} />
-        
+
           <div className="ql-snow">
             <div
               className="ql-editor p-0"
