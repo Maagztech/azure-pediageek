@@ -79,7 +79,7 @@ const Home = () => {
                 <h5 className="card-title"><strong>Holistic Therapy Day! 26th of July</strong></h5>
                 <h6 className="card-text" style={{ color: 'black' }}>Write an article on
                 Holistic Therapy Day and get a chance to feature your blog on the top
-                of Home with 4000 viewrs every day visiting Pediageek to accumulate
+                of Home with 4000 viewers every day visiting Pediageek to accumulate
           knowledge.<Link to='/login?create_blog'>Start Here</Link></h6>
               </div>
             </div>
