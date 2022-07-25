@@ -138,3 +138,6 @@ export interface ICity {
 export interface IWork {
   name: string;
 }
+export interface INews {
+  name: string;
+}

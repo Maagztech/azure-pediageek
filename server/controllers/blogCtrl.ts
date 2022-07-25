@@ -7,6 +7,7 @@ import { IReqAuth } from "../config/interface";
 import mongoose from "mongoose";
 import balanceCtrl from "./balanceCtrl";
 import notificationCtrl from "./noticeCtrl";
+import News from "../models/newsModel";
 
 const Pagination = (req: IReqAuth) => {
   let page = Number(req.query.page) * 1 || 1;
@@ -132,6 +133,7 @@ const blogCtrl = {
 
         res.json({ blogs, total });
       } else {
+        
         let Data = await Blogs.aggregate([
           {
             $search: {
