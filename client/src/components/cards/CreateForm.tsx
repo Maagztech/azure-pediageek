@@ -167,8 +167,8 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
         >
           <span className="btn btn-secondary p-1 position-absolute px-3" style={{ right: 5 }} onClick={e => { close() }}>&times;</span>
 
-          {categor.length &&
-            <p style={{ color: "black" }}>Select One...</p>
+          {categor.length ?
+            <p style={{ color: "black" }}>Select One...</p> : <></>
           }
           {categor.length === 0 ? <button className="btn btn-light py-2 m-1 pb-2" onClick={(e) => addcat()}>
             Add Category

@@ -19,6 +19,7 @@ import {
 } from "../types/blogType";
 
 import { checkTokenExp } from "../../utils/checkTokenExp";
+import { IAuth } from "../types/authType";
 
 export const createBlog =
   (blog: IBlog, token: string) =>
@@ -52,18 +53,48 @@ export const createBlog =
   };
 
 export const getHomeBlogs =
-  (search: string) =>
+  (search: string, auth: IAuth) =>
   async (dispatch: Dispatch<IAlertType | IGetHomeBlogsType>) => {
     try {
       let limit = 8;
       let value = search ? search : `?page=${1}`;
+      let res;
 
-      const res = await getAPI(`home/blogs${value}&limit=${limit}`);
-
-      dispatch({
-        type: GET_HOME_BLOGS,
-        payload: { ...res.data },
-      });
+      if (!auth.access_token) {
+        res = await getAPI(`home/blogs${value}&limit=${limit}`);
+        dispatch({
+          type: GET_HOME_BLOGS,
+          payload: { ...res.data },
+        });
+      } else {
+        const t = await getAPI("ispreferance", auth.access_token);
+        if (t) res = await getAPI(`home/blogs${value}&limit=${limit}`);
+        else
+          res = await getAPI(
+            `home/signedblogsbysearch${value}&limit=${8}`,
+            auth.access_token
+          );
+        dispatch({
+          type: GET_HOME_BLOGS,
+          payload: { ...res.data },
+        });
+        res = await getAPI(
+          `home/signedblogsbycategory${value}&limit=${8}`,
+          auth.access_token
+        );
+        dispatch({
+          type: GET_HOME_BLOGS,
+          payload: { ...res.data },
+        });
+        res = await getAPI(
+          `home/signedblogsbyfollow${value}&limit=${8}`,
+          auth.access_token
+        );
+        dispatch({
+          type: GET_HOME_BLOGS,
+          payload: { ...res.data },
+        });
+      }
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }

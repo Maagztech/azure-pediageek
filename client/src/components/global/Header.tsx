@@ -7,6 +7,7 @@ import Referal from './Referal'
 import { useDispatch, useSelector } from 'react-redux'
 import { IParams, RootStore } from '../../utils/TypeScript'
 import { useEffect, useState } from 'react'
+import Category from './Categories'
 
 
 const Header = () => {
@@ -55,6 +56,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Category />
       <Referal />
       <Notification />
       <GooglePrompt />

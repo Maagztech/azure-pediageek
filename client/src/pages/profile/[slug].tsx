@@ -9,6 +9,7 @@ import OtherInfo from '../../components/profile/OtherInfo'
 import Other from '../../components/profile/Other'
 import Info from '../../components/profile/Info'
 
+
 const Profile = () => {
   const { slug }: IParams = useParams()
   const { auth } = useSelector((state: RootStore) => state)

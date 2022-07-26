@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 import { Request } from "express";
 
 export interface IUser extends Document {
@@ -12,6 +12,7 @@ export interface IUser extends Document {
   following: string[];
   role: string;
   type: string;
+  notice?: boolean;
   rf_token?: string;
   _doc: object;
 }
@@ -21,6 +22,15 @@ export interface INewUser {
   account: string;
   password: string;
 }
+
+export interface INotice extends Document {
+  user: string;
+  msg: string;
+  desc: string;
+  url?: string;
+  _doc: object;
+}
+
 export interface INotification {
   user: string;
   msg: [
@@ -99,4 +109,35 @@ export interface IDraft extends Document {
   thumbnail?: string;
   category?: string;
   _doc: object;
+}
+
+export interface IPreferance {
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interest: string[];
+  categoryid: string[];
+  birthday?: Date;
+  isdark?: Boolean;
+}
+
+export interface ICountry {
+  name: string;
+}
+
+export interface IState {
+  name: string;
+}
+
+export interface ICity {
+  name: string;
+}
+
+export interface IWork {
+  name: string;
+}
+export interface INews {
+  name: string;
 }

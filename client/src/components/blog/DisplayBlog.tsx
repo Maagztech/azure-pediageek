@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { IBlog, RootStore, IUser, IComment } from "../../utils/TypeScript";
-import "./DisplayBlog.css";
+import "react-quill/dist/quill.snow.css";
 import Input from "../comments/Input";
 import Comments from "../comments/Comments";
 import Loading from "../global/Loading";
 import Pagination from "../global/Pagination";
-
 import { createComment, getComments } from "../../redux/actions/commentAction";
 import { getAPI, patchAPI, putAPI } from "../../utils/FetchData";
-import { Timer, Time, TimerOptions } from 'timer-node';
+import { Timer, Time, TimerOptions } from "timer-node";
+import Abovepost from "../ads/Adsabovepost.jsx";
 
 interface IProps {
   blog: IBlog;
 }
-const timer = new Timer({ label: 'usertime' });
+const timer = new Timer({ label: "usertime" });
 const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   const { auth, comments, darkMode } = useSelector((state: RootStore) => state);
   const dispatch = useDispatch();
@@ -58,13 +58,13 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   useEffect(() => {
     timer.start();
     setTimeout(function () {
-      putAPI("addv", { blog })
-    }, 10000)
+      putAPI("addv", { blog });
+    }, 10000);
     return () => {
       const t = timer.ms();
       patchAPI("adduser", { blog, t });
-    }
-  }, [])
+    };
+  }, []);
   useEffect(() => {
     if (!blog._id) return;
     const num = history.location.search.slice(6) || 1;
@@ -78,22 +78,27 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
   return (
     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-      <div style={{ flex: 9,textAlign:'center' }}>
-        <div style={{ maxWidth: 850, margin: "20px", minWidth: 250,textAlign:'center' }}>
+      <div style={{ flex: 9 }}>
+        <div style={{ maxWidth: 850, minWidth: 250 }}>
+          {typeof blog.user != 'string' && blog.user.role !== 'user' ? < Abovepost /> : <></>}
           <h2
             className="text-center my-3 text-capitalize fs-1"
-            style={{ color: isdarkMode ? 'white' : 'black', fontSize: 30 }}
+            style={{ color: isdarkMode ? "white" : "black", fontSize: 30 }}
           >
             <b>{blog.title}</b>
           </h2>
+          <hr style={{ color: isdarkMode ? "white" : "black" }} />
 
-
-          <hr style={{ color: isdarkMode ? 'white' : 'black' }} /><br />
-
-
-
-          <div className='ql-snow text-center '>
-            <div className='ql-editor p-0 text-size' dangerouslySetInnerHTML={{ __html: blog.content }} style={{color: isdarkMode ? 'white' : 'black' }} />
+          <div className="ql-snow">
+            <div
+              className="ql-editor p-0"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+              style={{
+                fontSize: "18px",
+                wordBreak: 'break-word',
+                color: isdarkMode ? "white" : "black",
+              }}
+            />
           </div>
 
           <hr className="my-1" />
@@ -102,7 +107,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           {auth.user ? (
             <Input callback={handleComment} />
           ) : (
-            <h5 className={`text-${isdarkMode ? 'light' : 'dark'}`}>
+            <h5 className={`text-${isdarkMode ? "light" : "dark"}`}>
               Please <Link to={`/login?blog/${blog._id}`}>login</Link> to
               comment.
             </h5>

@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Following from "./UserFollowing";
 import UserBlogs from "./UserBlogs";
 import UserDrafts from "./UserDrafts";
 import Follower from "./UserFollower";
 
 const Info: React.FC = () => {
+    const [showfollower, setShowfollower] = useState(false)
+    const [showfollowing, setShowfollowing] = useState(false)
+    $('#nav-profile-tab').on('click', function () {
+        setShowfollower(true)
+    });
+    $('#nav-contact-tab').on('click', function () {
+        setShowfollowing(true)
+    });
     return (
         <>
             <nav>
@@ -18,8 +26,8 @@ const Info: React.FC = () => {
             <div className="tab-content my-3" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}><UserBlogs /></div>
                 <div className="tab-pane fade" id="nav-drafts" role="tabpanel" aria-labelledby="nav-drafts-tab" tabIndex={0}><UserDrafts /></div>
-                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}><Follower /></div>
-                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex={0}><Following /></div>
+                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>{!showfollower ? <></> : <Follower />}</div>
+                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex={0}>{!showfollowing ? <></> : <Following />}</div>
             </div>
 
         </>

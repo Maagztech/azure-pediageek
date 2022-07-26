@@ -2,13 +2,14 @@ import { IPreferance } from "../../utils/TypeScript";
 import { GET_PREFERANCE, IGetPreferanceType } from "../types/preferanceType";
 
 const inti = {
-  user: "",
   country: "",
+  state: "",
+  city: "",
+  locality: "",
   language: [],
   interests: [],
-  birthday: new Date(),
-  theme: "light",
-};
+  isdark: true,
+}; 
 const preferanceReducer = (
   state: IPreferance = inti,
   action: IGetPreferanceType
@@ -16,7 +17,6 @@ const preferanceReducer = (
   switch (action.type) {
     case GET_PREFERANCE:
       return action.payload;
-
     default:
       return state;
   }

@@ -37,21 +37,34 @@ export interface IUser extends IUserLogin {
   paytm: string;
   updatedAt: string;
   _id: string;
+  notice: Boolean;
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interests?: string[];
+  birthday?: Date;
+  isdark?: Boolean;
+  gender?: string;
+  working: string;
+  aspire: string;
 }
 
 export interface IPreferance {
-  user: string;
-  country: string;
-  language: string[];
-  interests: string[];
-  birthday: Date;
-  theme: string;
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interests?: string[];
+  birthday?: Date;
+  isdark?: Boolean;
 }
 
 export interface IUserProfile extends IUserRegister {
   avatar: any;
   about: string;
-  paytm: string;
 }
 
 export interface IUserFollow {
@@ -76,7 +89,7 @@ export interface IAlert {
 export interface INotification {
   msg: string;
   desc: string;
-  time: Date;
+  createdAt: Date;
   url?: string;
 }
 

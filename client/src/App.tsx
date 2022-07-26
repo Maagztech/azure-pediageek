@@ -18,13 +18,15 @@ import SocketClient from './SocketClient'
 
 
 const App = () => {
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getCategories())
     dispatch(refreshToken())
-    dispatch(getHomeBlogs(`?page=${1}`))
+
   }, [dispatch])
+
 
   useEffect(() => {
     const socket = io()

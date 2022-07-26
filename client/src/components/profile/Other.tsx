@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Following from "./OtherFollowings";
 import UserBlogs from "./UserBlogs";
 import Follower from "./OtherFollower";
@@ -8,7 +8,14 @@ interface IProps {
 }
 
 const Other: React.FC<IProps> = ({ id }) => {
-
+    const [showfollower, setShowfollower] = useState(false)
+    const [showfollowing, setShowfollowing] = useState(false)
+    $('#nav-profile-tab').on('click', function () {
+        setShowfollower(true)
+    });
+    $('#nav-contact-tab').on('click', function () {
+        setShowfollowing(true)
+    });
     return (
         <>
             <nav >
@@ -20,8 +27,8 @@ const Other: React.FC<IProps> = ({ id }) => {
             </nav>
             <div className="tab-content my-3" id="nav-tabContent">
                 <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabIndex={0}><UserBlogs /></div>
-                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}><Follower id={id} /></div>
-                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex={0}><Following id={id} /></div>
+                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex={0}>{!showfollower ? <></> : <Follower id={id} />}</div>
+                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabIndex={0}>{!showfollowing ? <></> : <Following id={id} />}</div>
             </div>
         </>
     );

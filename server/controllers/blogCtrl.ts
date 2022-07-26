@@ -1,16 +1,24 @@
 import { Request, Response } from "express";
 import Blogs from "../models/blogModel";
 import Comments from "../models/commentModel";
+import Preferances from "../models/preferanceModel";
+import Users from "../models/userModel";
 import { IReqAuth } from "../config/interface";
 import mongoose from "mongoose";
 import balanceCtrl from "./balanceCtrl";
-import notificationCtrl from "./notificationCtrl";
+import notificationCtrl from "./noticeCtrl";
+import News from "../models/newsModel";
 
 const Pagination = (req: IReqAuth) => {
   let page = Number(req.query.page) * 1 || 1;
   let limit = Number(req.query.limit) * 1 || 4;
   let skip = (page - 1) * limit;
-
+  return { page, limit, skip };
+};
+const Pagination1 = (req: IReqAuth) => {
+  let page = Math.floor(Number(req.query.page) / 3 + 1) * 1 || 1;
+  let limit = Number(req.query.limit) * 1 || 4;
+  let skip = (page - 1) * limit;
   return { page, limit, skip };
 };
 
@@ -60,72 +68,280 @@ const blogCtrl = {
   getHomeBlogs: async (req: Request, res: Response) => {
     const { limit, skip } = Pagination(req) || { 4: 0 };
     try {
+      if (Number(req.query.page) != 1) {
+        let Data = await Blogs.aggregate([
+          {
+            $facet: {
+              totalData: [
+                // User
+                {
+                  $lookup: {
+                    from: "users",
+                    let: { user_id: "$user" },
+                    pipeline: [
+                      { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                      {
+                        $project: {
+                          password: 0,
+                          referer: 0,
+                          type: 0,
+                          rf_token: 0,
+                        },
+                      },
+                    ],
+                    as: "user",
+                  },
+                },
+                // array -> object
+                { $unwind: "$user" },
+                // Sorting
+                { $sort: { earn: -1 } },
+                { $skip: skip },
+                { $limit: limit },
+                {
+                  $project: {
+                    earn: 0,
+                  },
+                },
+              ],
+              totalCount: [
+                {
+                  $match: {},
+                },
+                { $count: "count" },
+              ],
+            },
+          },
+          {
+            $project: {
+              count: { $arrayElemAt: ["$totalCount.count", 0] },
+              totalData: 1,
+            },
+          },
+        ]);
+        const blogs = Data[0].totalData;
+        const count = Data[0].count;
+
+        // Pagination
+        let total = 0;
+
+        if (count % limit === 0) {
+          total = count / limit;
+        } else {
+          total = Math.floor(count / limit) + 1;
+        }
+
+        res.json({ blogs, total });
+      } else {
+        
+        let Data = await Blogs.aggregate([
+          {
+            $search: {
+              index: "bogs_search",
+              text: {
+                query: [
+                  "holistic therapy day",
+                  "news",
+                  "latest",
+                  "india",
+                  "sports news",
+                  "politics",
+                  "pratibha murmu",
+                ],
+                path: {
+                  wildcard: "*",
+                },
+                fuzzy: {},
+              },
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              let: { user_id: "$user" },
+              pipeline: [
+                { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                
+                {
+                  $project: {
+                    password: 0,
+                    referer: 0,
+                    type: 0,
+                    rf_token: 0,
+                  },
+                },
+              ],
+              as: "user",
+            },
+          },
+          // array -> object
+          { $unwind: "$user" },
+          { $match: { $expr: { $eq: ["$user.role", "garnet"] } } },
+          // Sorting
+          { $limit: limit },
+          {
+            $project: {
+              earn: 0,
+            },
+          },
+        ]);
+
+        res.json({ blogs: Data, total: 100 });
+      }
+    } catch (err: any) {
+      console.log(err.message);
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  getHomeBlogsBySearch: async (req: IReqAuth, res: Response) => {
+    const { limit, skip } = Pagination1(req) || { 5: 0 };
+    if (!req.user)
+      return res.status(400).json({ msg: "Invalid Authentication." });
+    try {
+      const user = await Preferances.findById(req.user._id);
+      if (!user)
+        if (!user)
+          return res.status(200).json({ msg: "Personalize your feed." });
       const Data = await Blogs.aggregate([
         {
-          $facet: {
-            totalData: [
-              // User
-              {
-                $lookup: {
-                  from: "users",
-                  let: { user_id: "$user" },
-                  pipeline: [
-                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                    {
-                      $project: {
-                        password: 0,
-                        referer: 0,
-                        type: 0,
-                        rf_token: 0,
-                      },
-                    },
-                  ],
-                  as: "user",
-                },
+          $search: {
+            index: "bogs_search",
+            text: {
+              query: user.interest,
+              path: {
+                wildcard: "*",
               },
-              // array -> object
-              { $unwind: "$user" },
-              // Sorting
-              { $sort: { views: -1 } },
-              { $skip: skip },
-              { $limit: limit },
-              {
-                $project: {
-                  earn: 0,
-                },
-              },
-            ],
-            totalCount: [
-              {
-                $match: {},
-              },
-              { $count: "count" },
-            ],
+              fuzzy: {},
+            },
           },
         },
         {
+          $lookup: {
+            from: "users",
+            let: { user_id: "$user" },
+            pipeline: [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              {
+                $project: {
+                  password: 0,
+                  referer: 0,
+                  type: 0,
+                  rf_token: 0,
+                },
+              },
+            ],
+            as: "user",
+          },
+        },
+        // array -> object
+        { $unwind: "$user" },
+        // Sorting
+        { $skip: skip },
+        { $limit: limit },
+        {
           $project: {
-            count: { $arrayElemAt: ["$totalCount.count", 0] },
-            totalData: 1,
+            earn: 0,
           },
         },
       ]);
 
-      const blogs = Data[0].totalData;
-      const count = Data[0].count;
+      res.json({ blogs: Data, total: 100 });
+    } catch (error: any) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  getHomeBlogsByCategory: async (req: IReqAuth, res: Response) => {
+    const { limit, skip } = Pagination1(req) || { 5: 0 };
+    if (!req.user)
+      return res.status(400).json({ msg: "Invalid Authentication." });
+    try {
+      const user = await Preferances.findById(req.user._id);
+      if (!user) return res.status(200).json({ msg: "Personalize your feed." });
+      const Data = await Blogs.aggregate([
+        {
+          $match: { $expr: { $in: ["$category", user.categoryid] } },
+        },
+        {
+          $lookup: {
+            from: "users",
+            let: { user_id: "$user" },
+            pipeline: [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              {
+                $project: {
+                  password: 0,
+                  referer: 0,
+                  type: 0,
+                  rf_token: 0,
+                },
+              },
+            ],
+            as: "user",
+          },
+        },
+        // array -> object
+        { $unwind: "$user" },
+        // Sorting
+        { $skip: skip },
+        { $limit: limit },
+        {
+          $project: {
+            earn: 0,
+          },
+        },
+      ]);
 
-      // Pagination
-      let total = 0;
+      res.json({ blogs: Data, total: 100 });
+    } catch (error: any) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  getHomeBlogsByFollow: async (req: IReqAuth, res: Response) => {
+    const { limit, skip } = Pagination1(req) || { 5: 0 };
+    if (!req.user)
+      return res.status(400).json({ msg: "Invalid Authentication." });
+    try {
+      const user = await Users.findById(req.user._id);
+      if (!user)
+        if (!user)
+          return res.status(200).json({ msg: "Personalize your feed." });
+      const Data = await Blogs.aggregate([
+        {
+          $match: { $expr: { $in: ["$user", user.follower] } },
+        },
+        {
+          $lookup: {
+            from: "users",
+            let: { user_id: "$user" },
+            pipeline: [
+              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              {
+                $project: {
+                  password: 0,
+                  referer: 0,
+                  type: 0,
+                  rf_token: 0,
+                },
+              },
+            ],
+            as: "user",
+          },
+        },
+        // array -> object
+        { $unwind: "$user" },
+        // Sorting
+        { $skip: skip },
+        { $limit: limit },
+        {
+          $project: {
+            earn: 0,
+          },
+        },
+      ]);
 
-      if (count % limit === 0) {
-        total = count / limit;
-      } else {
-        total = Math.floor(count / limit) + 1;
-      }
-
-      res.json({ blogs, total });
-    } catch (err: any) {
-      return res.status(500).json({ msg: err.message });
+      res.json({ blogs: Data, total: 100 });
+    } catch (error: any) {
+      return res.status(500).json({ msg: error.message });
     }
   },
   getBlogsByCategory: async (req: Request, res: Response) => {
