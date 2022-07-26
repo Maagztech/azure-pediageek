@@ -81,7 +81,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
       <div style={{ flex: 9 }}>
         <div style={{ maxWidth: 850, minWidth: 250 }}>
           <div className="conatainer">
-            < Abovepost />
+            < Abovepost imageurl={blog.thumbnail} imagealt={blog.title} />
           </div>
           <h2
             className="text-center my-3 text-capitalize fs-1"
