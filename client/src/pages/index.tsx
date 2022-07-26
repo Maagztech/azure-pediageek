@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IBlog, RootStore } from "../utils/TypeScript";
 import CardVert from "../components/cards/CardVert";
@@ -9,8 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Referal from "../components/global/Referal";
 import { Link } from "react-router-dom";
 import Homevert from "../components/ads/Homevert";
-import Aibox from "../components/global/Aibox";
-import { getAPI } from "../utils/FetchData";
+import Aibox from "../components/global/Preferance";
 
 const Home = () => {
   const { homeBlogs, categories, darkMode, auth } = useSelector(
@@ -19,17 +18,13 @@ const Home = () => {
   //const [promo, setPromo] = useState<IBlog>()
   const { isdarkMode } = darkMode;
   const [hasMore, setHasMore] = useState(true);
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getHomeBlogs(`?page=${1}`, auth));
   }, []);
-
   useEffect(() => {
     setHasMore(homeBlogs.count <= homeBlogs.total);
   }, [homeBlogs]);
-
   const fetchMore = () => {
     dispatch(getHomeBlogs(`?page=${homeBlogs.count + 1}`, auth));
     return;
