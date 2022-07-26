@@ -16,6 +16,7 @@ const Abovepost = ({ imageurl }) => {
         borderRadius: 10,
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
+        overflow: "hidden",
       }}
     >
       <ins
