@@ -80,7 +80,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       <div style={{ flex: 9 }}>
         <div style={{ maxWidth: 850, minWidth: 250 }}>
-          {typeof blog.user != 'string' && blog.user.role !== 'user' ? < Abovepost /> : <></>}
+           < Abovepost />
           <h2
             className="text-center my-3 text-capitalize fs-1"
             style={{ color: isdarkMode ? "white" : "black", fontSize: 30 }}
