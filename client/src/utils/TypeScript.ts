@@ -47,8 +47,9 @@ export interface IUser extends IUserLogin {
   birthday?: Date;
   isdark?: Boolean;
   gender?: string;
-  working: string;
-  aspire: string;
+  working?: string;
+  aspire?: string;
+  organization?: string;
 }
 
 export interface IPreferance {
@@ -65,6 +66,18 @@ export interface IPreferance {
 export interface IUserProfile extends IUserRegister {
   avatar: any;
   about: string;
+  locality?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  language?: string[];
+  interests?: string[];
+  birthday?: Date;
+  isdark?: Boolean;
+  gender?: string;
+  working?: string;
+  aspire?: string;
+  organization?: string;
 }
 
 export interface IUserFollow {
