@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const Abovepost = ({imageurl}) => {
+const Abovepost = ({ imageurl }) => {
   const { darkMode } = useSelector((state) => state);
   const { isdarkMode } = darkMode;
   useEffect(() => {
@@ -11,7 +11,12 @@ const Abovepost = ({imageurl}) => {
   return (
     <div
       className="container p-0"
-      style={{ backgroundImage: `url(${imageurl})`, borderRadius:10}}
+      style={{
+        backgroundImage: `url(${imageurl})`,
+        borderRadius: 10,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <ins
         className="adsbygoogle"
