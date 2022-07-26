@@ -9,17 +9,13 @@ const Abovepost = () => {
   }, []);
 
   return (
-    <div className="container">
     <ins
       className="adsbygoogle"
-      style={{ display: "block", textAlign: "center" }}
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
+      style={{ display: "block" }}
+      data-ad-format="autorelaxed"
       data-ad-client="ca-pub-3982561798373930"
-      data-ad-slot="2009084964"
-      data-full-width-responsive="false"
+      data-ad-slot="4994340952"
     ></ins>
-    </div>
   );
 };
 
