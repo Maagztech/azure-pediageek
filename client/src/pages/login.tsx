@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <div className={`auth_page bg-${isdarkMode?'dark':'light'} text-${isdarkMode?'white':'black'}`}>
-      <Helmetglobal title="Login-PediaGeek" description="Login to pediageek to write a blog an dearn." keyword="Login" />
+      <Helmetglobal title="Login" description="Login to pediageek to write a blog an dearn." keyword="Login" />
       <div className={`auth_box bg-${isdarkMode?'dark':'light'} `}>
         <h3 className="text-uppercase text-center mb-4">Login</h3>
         <SocialLogin referer="" />

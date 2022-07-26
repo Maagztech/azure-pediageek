@@ -9,7 +9,8 @@ import { Link, useHistory } from "react-router-dom";
 
 const RegisterForm = () => {
   const history = useHistory();
-  const { otherInfo } = useSelector((state: RootStore) => state);
+  const { otherInfo, darkMode } = useSelector((state: RootStore) => state);
+  const { isdarkMode } = darkMode;
   const variable = history.location.search.replace('?', "").split('=')[0];
   const answer = history.location.search.replace('?', "").split('=')[1];
   const initialState = {
@@ -158,26 +159,23 @@ const RegisterForm = () => {
               {typeCfPass ? "Hide" : "Show"}
             </small>
           </div>
-          <div className="form-group mb-3">
-            <label htmlFor="referal" className="form-label">
-              Referal Id <small>(Optional)</small>
-            </label>
-
-            <input
-              type="text"
-              className="form-control"
-              id="referal"
-              name="referer"
-              value={referer}
-              onChange={handleChangeInput}
-              placeholder="Enter the referal ID"
-            />
-
-
-          </div>
         </div>
+        <div className="form-group mb-3">
+          <label htmlFor="referal" className="form-label">
+            Referal Id <small>(Optional)</small>
+          </label>
 
-        <button type="submit" className="btn btn-dark w-100 my-1">
+          <input
+            type="text"
+            className="form-control"
+            id="referal"
+            name="referer"
+            value={referer}
+            onChange={handleChangeInput}
+            placeholder="Enter the referal ID"
+          />
+        </div>
+        <button type="submit" className={`btn btn-dark w-100 my-1 border border-${isdarkMode ? 'light' : 'dark'}`}>
           Register
         </button>
       </form>

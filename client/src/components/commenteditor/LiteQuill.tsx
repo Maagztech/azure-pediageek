@@ -16,8 +16,6 @@ const LiteQuill: React.FC<IProps> = ({ body, setBody }) => {
 
   return (
     <div>
-
-
       <ReactQuill
         className={`text-${isdarkMode ? 'light' : 'dark'} border border-${isdarkMode ? 'light' : 'dark'}`}
         theme="bubble"
@@ -26,7 +24,6 @@ const LiteQuill: React.FC<IProps> = ({ body, setBody }) => {
         onChange={(e) => setBody(e)}
         value={body}
         id="commenteditor"
-
       />
     </div>
   );

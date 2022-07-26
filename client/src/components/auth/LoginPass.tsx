@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-
-import { InputChange, FormSubmit } from '../../utils/TypeScript'
+import { useDispatch, useSelector } from 'react-redux'
+import { InputChange, FormSubmit, RootStore } from '../../utils/TypeScript'
 import { login } from '../../redux/actions/authAction'
-
 
 const LoginPass = () => {
   const initialState = { account: '', password: '' }
+  const { darkMode } = useSelector((state: RootStore) => state);
+  const { isdarkMode } = darkMode;
   const [userLogin, setUserLogin] = useState(initialState)
   const { account, password } = userLogin
 
@@ -28,35 +28,35 @@ const LoginPass = () => {
     <form onSubmit={handleSubmit}>
       <div className="container my-2" style={{ textAlign: 'center' }}><h4>- - - OR - - -</h4></div>
 
-        <div className="form-group mb-3">
-          <label htmlFor="account" className="form-label">
-            Email
+      <div className="form-group mb-3">
+        <label htmlFor="account" className="form-label">
+          Email
           </label>
 
-          <input type="text" className="form-control" id="account"
-            name="account" value={account} onChange={handleChangeInput} />
+        <input type="text" className="form-control" id="account"
+          name="account" value={account} onChange={handleChangeInput} />
+      </div>
+
+      <div className="form-group mb-3">
+        <label htmlFor="password" className="form-label">Password</label>
+
+        <div className="pass">
+          <input type={typePass ? "text" : "password"}
+            className="form-control"
+            id="password"
+            name="password" value={password}
+            onChange={handleChangeInput}
+          />
+
+          <small onClick={() => setTypePass(!typePass)}>
+            {typePass ? 'Hide' : 'Show'}
+          </small>
         </div>
+      </div>
 
-        <div className="form-group mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-
-          <div className="pass">
-            <input type={typePass ? "text" : "password"}
-              className="form-control"
-              id="password"
-              name="password" value={password}
-              onChange={handleChangeInput}
-            />
-
-            <small onClick={() => setTypePass(!typePass)}>
-              {typePass ? 'Hide' : 'Show'}
-            </small>
-          </div>
-        </div>
-
-        <button type="submit" className="btn btn-dark w-100 mt-1"
-          disabled={(account && password) ? false : true}>
-          Login
+      <button type="submit" className={`btn btn-dark w-100 my-1 border border-${isdarkMode ? 'light' : 'dark'}`}
+        disabled={(account && password) ? false : true}>
+        Login
         </button>
     </form>
   )

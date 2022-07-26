@@ -140,6 +140,7 @@ const blogCtrl = {
               index: "bogs_search",
               text: {
                 query: [
+                  "holistic therapy day",
                   "news",
                   "latest",
                   "india",
