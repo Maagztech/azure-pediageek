@@ -11,7 +11,7 @@ const Abovepost = () => {
 
   return (
     <ins
-      className="adsbygoogle"
+      className="adsbygoogle w-100 bg-light"
       style={{ display: "block" }}
       data-ad-format="autorelaxed"
       data-ad-client="ca-pub-3982561798373930"
