@@ -57,28 +57,6 @@ const BlogsByCategory = () => {
   return (
     <div>
       <Helmetglobal title={`${slug} Blogs`} description={`Blogs from ${slug} category.`} keyword={slug} />
-
-      <div className={`example pt-1 px-2 mb-1  border border-start-0 border-end-0`} style={{
-        position: 'sticky',
-        display: 'block',
-        overflow: 'scroll',
-        whiteSpace: 'nowrap',
-        zIndex: 9,
-        top: 50,
-        backgroundColor: isdarkMode ? '#202020' : 'white'
-      }}>
-        <Link to={`/`} className={`btn btn-tag rounded-pill mx-1 px-2 text-${isdarkMode ? 'white' : 'black'}`} style={{ backgroundColor: isdarkMode ? '#373737' : '#e9e3e3' }} >Home</Link>
-        {categories.map((category, index) => (
-
-          <Link to={`/blogs/${category.name}`} key={index}
-            className={`btn ${slug === category.name ? "active-tag" : "btn-tag"}  text-${isdarkMode ? 'white' : 'black'} rounded-pill mx-1 px-2 `} style={{ backgroundColor: isdarkMode && slug !== category.name ? '#373737' : '' }} >
-            {category.name}</Link>
-
-        ))
-        }
-
-      </div>
-
       <div className="blogs_category">
         {blogs.length > 0 ? <><div className="show_blogs">
           {
