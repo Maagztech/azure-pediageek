@@ -6,6 +6,7 @@ const Abovepost = () => {
   const { isdarkMode } = darkMode;
   useEffect(() => {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
+    console.log(window.adsbygoogle);
   }, []);
 
   return (
