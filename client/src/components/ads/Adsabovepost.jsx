@@ -14,7 +14,7 @@ const Abovepost = ({ imageurl }) => {
       style={{
         backgroundImage: `url(${imageurl})`,
         borderRadius: 10,
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
       }}
     >
