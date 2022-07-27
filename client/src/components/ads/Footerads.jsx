@@ -11,11 +11,12 @@ const Abovepost = () => {
 
   return (
     <ins
-      className="adsbygoogle w-100"
-      style={{ display: "block" }}
-      data-ad-format="autorelaxed"
+      class="adsbygoogle"
+      style={{ display: "block", textAlign: "center" }}
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
       data-ad-client="ca-pub-3982561798373930"
-      data-ad-slot="4994340952"
+      data-ad-slot="6956892022"
     ></ins>
   );
 };

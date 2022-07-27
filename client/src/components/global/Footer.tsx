@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootStore } from "../../utils/TypeScript";
-import Footerads from '../ads/Footerads'
+
 const Footer = () => {
 
   const { auth, darkMode } = useSelector((state: RootStore) => state);
   const { isdarkMode } = darkMode;
   return (
     <>
-      <Footerads />
       <div className={`text-center bg-${isdarkMode} text-${isdarkMode ? 'white' : 'black'} py-4`} >
         <footer className={`text-center text-lg-start text-muted text-${isdarkMode ? 'white' : 'black'} `}  >
           <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom ">

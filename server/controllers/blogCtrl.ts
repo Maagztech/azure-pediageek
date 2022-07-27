@@ -140,19 +140,12 @@ const blogCtrl = {
               index: "bogs_search",
               text: {
                 query: [
-                  "Apj abdul kalam",
-                  "india national ",
+                  "monkypox",
+                  "Apj abdul kalam",     
                   "news",
-                  "latest",
                   "india",
                   "sports news",
-                  "politics",
-                  "monky pox",
-                  "Uddhav Thackeray",
-                  "OJEE Result 2022",
-                  "When is 5G Auction in India",
-                  "Kargil day",
-                  "Murali Vijay Dinesh Karthik India national cricket team "
+                  "politics",                 
                 ],
                 path: {
                   wildcard: "*",
