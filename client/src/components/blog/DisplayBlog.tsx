@@ -126,7 +126,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           {comments.total > 1 && (
             <Pagination total={comments.total} callback={handlePagination} />
           )}
-          <div>
+          <div className="my-2" style={{borderRadius:'10px'}}>
             <Footerads />
           </div>
         </div>

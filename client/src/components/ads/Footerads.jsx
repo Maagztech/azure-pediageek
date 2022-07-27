@@ -10,7 +10,7 @@ const Abovepost = () => {
   }, []);
 
   return (
-    <div style={{ borderRadius: "10px my-2" }}>
+    
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
@@ -18,7 +18,7 @@ const Abovepost = () => {
         data-ad-client="ca-pub-3982561798373930"
         data-ad-slot="4994340952"
       ></ins>
-    </div>
+  
   );
 };
 

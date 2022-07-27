@@ -12,7 +12,7 @@ export default function Sidebar({ blog }) {
   const { darkMode } = useSelector((state: RootStore) => state);
   const { isdarkMode } = darkMode;
   return (
-    <div className={`sidebar bg-${isdarkMode ? 'dark' : 'light'} my-md-2`} style={{ color: isdarkMode ? 'white' : 'black' }}>
+    <div className={`sidebar bg-${isdarkMode ? 'dark' : 'light'} my-2 my-lg-0`} style={{ color: isdarkMode ? 'white' : 'black' }}>
       <div className="sidebarItem">
         <span className="sidebarTitle" style={{ color: isdarkMode ? 'white' : 'black' }}>ABOUT AUTHOR</span>
         <Link
