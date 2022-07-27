@@ -77,7 +77,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     fetchComments(blog._id, num);
   };
 
-  return (  
+  return (
     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
       <div style={{ flex: 9 }}>
         <div style={{ maxWidth: 850, minWidth: 250 }}>
@@ -130,10 +130,8 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
             <Footerads />
           </div>
         </div>
-
       </div>
       <Sidebar blog={blog} />
-
     </div>
 
 
