@@ -140,14 +140,14 @@ const blogCtrl = {
               index: "bogs_search",
               text: {
                 query: [
+                  "monkypox",
                   "Apj abdul kalam",
                   "india national ",
                   "news",
                   "latest",
                   "india",
                   "sports news",
-                  "politics",
-                  "monky pox",
+                  "politics",                 
                   "Uddhav Thackeray",
                   "OJEE Result 2022",
                   "When is 5G Auction in India",
