@@ -147,6 +147,12 @@ const blogCtrl = {
                   "india",
                   "sports news",
                   "politics",
+                  "monky pox",
+                  "Uddhav Thackeray",
+                  "OJEE Result 2022",
+                  "When is 5G Auction in India",
+                  "Kargil day",
+                  "Murali Vijay Dinesh Karthik India national cricket team "
                 ],
                 path: {
                   wildcard: "*",
@@ -176,7 +182,7 @@ const blogCtrl = {
           },
           // array -> object
           { $unwind: "$user" },
-          { $match: { $expr: { $eq: ["$user.role", "garnet"] } } },
+          // { $match: { $expr: { $eq: ["$user.role", "garnet"] } } },
           // Sorting
           { $limit: limit },
           {
