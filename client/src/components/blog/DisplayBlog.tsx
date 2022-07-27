@@ -78,62 +78,69 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-      <div style={{ flex: 9 }}>
-        <div style={{ maxWidth: 850, minWidth: 250 }}>
-          <div className="conatainer">
-            < Abovepost imageurl={blog.thumbnail} imagealt={blog.title} />
-          </div>
-          <h2
-            className="text-center my-3 text-capitalize fs-1"
-            style={{ color: isdarkMode ? "white" : "black", fontSize: 30 }}
-          >
-            <b>{blog.title}</b>
-          </h2>
-          <hr style={{ color: isdarkMode ? "white" : "black" }} />
+    <>
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <div style={{ flex: 9 }}>
+          <div style={{ maxWidth: 850, minWidth: 250 }}>
+            <div className="conatainer">
+              < Abovepost imageurl={blog.thumbnail} imagealt={blog.title} />
+            </div>
+            <h2
+              className="text-center my-3 text-capitalize fs-1"
+              style={{ color: isdarkMode ? "white" : "black", fontSize: 30 }}
+            >
+              <b>{blog.title}</b>
+            </h2>
+            <hr style={{ color: isdarkMode ? "white" : "black" }} />
 
-          <div className="ql-snow">
-            <div
-              className="ql-editor p-0"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
-              style={{
-                fontSize: "18px",
-                wordBreak: 'break-word',
-                color: isdarkMode ? "white" : "black",
-              }}
-            />
-          </div>
+            <div className="ql-snow">
+              <div
+                className="ql-editor p-0"
+                dangerouslySetInnerHTML={{ __html: blog.content }}
+                style={{
+                  fontSize: "18px",
+                  wordBreak: 'break-word',
+                  color: isdarkMode ? "white" : "black",
+                }}
+              />
+            </div>
 
-          <hr className="my-1" />
-          <h3 style={{ color: "#ff7a00" }}>✩ Comments ✩</h3>
+            <hr className="my-1" />
+            <h3 style={{ color: "#ff7a00" }}>✩ Comments ✩</h3>
 
-          {auth.user ? (
-            <Input callback={handleComment} />
-          ) : (
-            <h5 className={`text-${isdarkMode ? "light" : "dark"}`}>
-              Please <Link to={`/login?blog/${blog._id}`}>login</Link> to
+            {auth.user ? (
+              <Input callback={handleComment} />
+            ) : (
+              <h5 className={`text-${isdarkMode ? "light" : "dark"}`}>
+                Please <Link to={`/login?blog/${blog._id}`}>login</Link> to
               comment.
-            </h5>
-          )}
+              </h5>
+            )}
 
-          {loading ? (
-            <Loading />
-          ) : (
-            showComments?.map((comment, index) => (
-              <Comments key={index} comment={comment} />
-            ))
-          )}
-          {comments.total > 1 && (
-            <Pagination total={comments.total} callback={handlePagination} />
-          )}
-          <div className="my-2" style={{borderRadius:'10px'}}>
-            <Footerads />
+            {loading ? (
+              <Loading />
+            ) : (
+              showComments?.map((comment, index) => (
+                <Comments key={index} comment={comment} />
+              ))
+            )}
+            {comments.total > 1 && (
+              <Pagination total={comments.total} callback={handlePagination} />
+            )}
+            <div className="mt-2" style={{ borderRadius: '10px', overflow: 'hidden' }}>
+              <Footerads />
+            </div>
           </div>
+
         </div>
+        <Sidebar blog={blog} />
 
       </div>
-      <Sidebar blog={blog} />
-    </div>
+      <div className="my-3" style={{ borderRadius: '10px', overflow: 'hidden', textAlign: 'center' }}>
+        <Footerads />
+      </div>
+    </>
+
   );
 };
 

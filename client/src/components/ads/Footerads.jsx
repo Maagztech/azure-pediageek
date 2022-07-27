@@ -10,15 +10,14 @@ const Abovepost = () => {
   }, []);
 
   return (
-    
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-format="autorelaxed"
-        data-ad-client="ca-pub-3982561798373930"
-        data-ad-slot="4994340952"
-      ></ins>
-  
+    <ins
+      class="adsbygoogle"
+      style={{ display: "block", textAlign: "center" }}
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="ca-pub-3982561798373930"
+      data-ad-slot="6956892022"
+    ></ins>
   );
 };
 
