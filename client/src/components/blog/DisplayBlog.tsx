@@ -12,6 +12,7 @@ import { createComment, getComments } from "../../redux/actions/commentAction";
 import { getAPI, patchAPI, putAPI } from "../../utils/FetchData";
 import { Timer, Time, TimerOptions } from "timer-node";
 import Abovepost from "../ads/Adsabovepost.jsx";
+import Footerads from "../ads/Footerads";
 
 interface IProps {
   blog: IBlog;
@@ -126,6 +127,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
             <Pagination total={comments.total} callback={handlePagination} />
           )}
         </div>
+        <Footerads />
       </div>
       <Sidebar blog={blog} />
     </div>
