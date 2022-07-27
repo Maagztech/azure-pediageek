@@ -140,13 +140,13 @@ const blogCtrl = {
               index: "bogs_search",
               text: {
                 query: [
-                  "holistic therapy day",
+                  "Apj abdul kalam",
+                  "india national ",
                   "news",
                   "latest",
                   "india",
                   "sports news",
                   "politics",
-                  "pratibha murmu",
                 ],
                 path: {
                   wildcard: "*",

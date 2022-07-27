@@ -34,25 +34,31 @@ const Home = () => {
 
   return (
     <>
-
       <div className="home_page">
-
-        <div className="card mb-3" style={{ maxWidth: '600px' }}>
+        <div className="card mb-3" style={{ maxWidth: "600px" }}>
           <div className="row g-0">
             <div className="col-md-4">
-              <img src="https://nationaltoday.com/wp-content/uploads/2022/06/41-Holistic-Therapy-640x514.jpg" className="img-fluid rounded-start" alt="..." />
+              <img
+                src="https://images.thequint.com/thequint%2F2015-07%2F97be9998-56b5-4ad4-84fa-e05566f760e5%2FQ%409%20Hero%20Image.jpg?rect=0%2C0%2C960%2C540&amp;auto=format%2Ccompress&amp;fmt=webp&amp;width=720"
+                className="img-fluid rounded-start"
+                alt="APJ Abdul Kalam's Death Anniversary"
+              />
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title"><strong>Holistic Therapy Day! 26th of July</strong></h5>
-                <h6 className="card-text" style={{ color: 'black' }}>Write an article on
-                Holistic Therapy Day and get a chance to feature your blog on the top
-                of Home with 4000 viewers every day visiting Pediageek to accumulate
-          knowledge.<Link to='/login?create_blog'>Start Here</Link></h6>
+                <p className="badge bg-primary">On this day in India History</p>
+                <h5 className="card-title">
+                  <strong>APJ Abdul Kalam's Death Anniversary ! 27th July</strong>
+                </h5>
+                <h6 className="card-text" style={{ color: "black" }}>
+
+                  Some of the brightest minds in the country can be found on the
+                  last benches of the classroom. — Dr APJ Abdul Kalam.
+                  <Link to="/login?create_blog">Create Post</Link>
+                </h6>
               </div>
             </div>
           </div>
-
         </div>
 
         <Referal />
