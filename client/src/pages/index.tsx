@@ -60,7 +60,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         <Referal />
         <Helmetglobal
           title="Home-PediaGeek"
