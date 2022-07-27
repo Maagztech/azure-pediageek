@@ -126,8 +126,9 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           {comments.total > 1 && (
             <Pagination total={comments.total} callback={handlePagination} />
           )}
+          <Footerads />
         </div>
-        <Footerads />
+
       </div>
       <Sidebar blog={blog} />
     </div>

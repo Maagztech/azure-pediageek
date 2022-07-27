@@ -10,13 +10,15 @@ const Abovepost = () => {
   }, []);
 
   return (
-    <ins
-      className="adsbygoogle w-100"
-      style={{ display: "block" }}
-      data-ad-format="autorelaxed"
-      data-ad-client="ca-pub-3982561798373930"
-      data-ad-slot="4994340952"
-    ></ins>
+    <div style={{ borderRadius: "10px" }}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-format="autorelaxed"
+        data-ad-client="ca-pub-3982561798373930"
+        data-ad-slot="4994340952"
+      ></ins>
+    </div>
   );
 };
 
