@@ -10,7 +10,7 @@ const Abovepost = () => {
   }, []);
 
   return (
-    <div style={{ borderRadius: "10px" }}>
+    <div style={{ borderRadius: "10px my-2" }}>
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
