@@ -162,7 +162,7 @@ export const updateBlog =
       const newBlog = { ...blog, thumbnail: url };
 
       const res = await putAPI(`blog/${newBlog._id}`, newBlog, access_token);
-
+      dispatch({ type: ALERT, payload: { loading: false } });
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });

@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootStore, IBlog, IUser } from "../utils/TypeScript";
+import { RootStore, IBlog } from "../utils/TypeScript";
 import { validCreateBlog, shallowEqual, validSaveDraft } from "../utils/Valid";
 import { getAPI } from "../utils/FetchData";
 
-import NotFound from "../components/global/NotFound";
 import CreateForm from "../components/cards/CreateForm";
 import CardHoriz from "../components/cards/CardHoriz";
 
@@ -13,9 +12,7 @@ import ReactQuill from "../components/editor/ReactQuill";
 import { ALERT } from "../redux/types/alertType";
 
 import { createBlog, deleteBlog, updateBlog } from "../redux/actions/blogAction";
-import { createDraft, deleteDraft, getDraftsByUserId, updateDraft } from "../redux/actions/draftAction";
-import UserDrafts from "../components/profile/UserDrafts";
-import UserBlogs from "../components/profile/SimilarBlogs";
+import { createDraft, deleteDraft, updateDraft } from "../redux/actions/draftAction";
 import { useHistory } from "react-router-dom";
 import Helmetglobal from "../components/global/Helmetglobal";
 
@@ -40,12 +37,11 @@ const CreateBlog: React.FC<IProps> = ({ id, draft }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState("");
 
-  const { auth, draftsUser, blogsUser, darkMode } = useSelector((state: RootStore) => state);
+  const { auth, darkMode } = useSelector((state: RootStore) => state);
   const dispatch = useDispatch();
   const { isdarkMode } = darkMode;
   const [oldData, setOldData] = useState<IBlog>(initState);
   const history = useHistory();
-  const search = history.location.search;
   useEffect(() => {
     if (id && draft === undefined) {
       getAPI(`blog/${id}`)
@@ -65,7 +61,7 @@ const CreateBlog: React.FC<IProps> = ({ id, draft }) => {
         })
         .catch((err) => console.log(err));
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   useEffect(() => {
@@ -100,7 +96,7 @@ const CreateBlog: React.FC<IProps> = ({ id, draft }) => {
     };
 
     if (id && !draft) {
-      if (blog.user === auth.user?._id || typeof blog.user !== 'string' && blog.user._id === auth.user?._id) {
+      if (blog.user === auth.user?._id || (typeof blog.user !== 'string' && blog.user._id === auth.user?._id)) {
 
       }
       else return dispatch({
@@ -173,8 +169,7 @@ const CreateBlog: React.FC<IProps> = ({ id, draft }) => {
     }
 
   };
-  let url = history.location.pathname;
-  url = url.substring(1);
+
 
   if (!auth.access_token) history.push(`/login?create_blog`);
 

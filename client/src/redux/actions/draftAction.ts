@@ -3,10 +3,8 @@ import { IBlog } from "../../utils/TypeScript";
 import { imageUpload } from "../../utils/ImageUpload";
 import {
   postAPI,
-  getAPI,
   putAPI,
   deleteAPI,
-  patchAPI,
 } from "../../utils/FetchData";
 
 import { ALERT, IAlertType } from "../types/alertType";
@@ -40,14 +38,11 @@ export const createDraft =
         }
 
       const newDraft = { ...blog, thumbnail: url };
-
       const res = await postAPI("draft", newDraft, access_token);
-
       dispatch({
         type: CREATE_DRAFTS_USER_ID,
         payload: res.data,
       });
-
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
