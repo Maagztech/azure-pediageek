@@ -5,11 +5,20 @@ import {
     InputChange,
     IUserProfile,
     FormSubmit,
+    IName,
 } from "../../utils/TypeScript";
 import NotFound from "../global/NotFound";
 import { updateUser, resetPassword } from "../../redux/actions/userAction";
+import { getAPI, patchAPI, postAPI } from "../../utils/FetchData";
+export interface search {
+    name: string;
+    value: string;
+}
 
 const EditInfo = () => {
+    const [namelist, setNamelist] = useState<IName[]>([]);
+    const [searchname, setSearchname] = useState<search>();
+
     const initState = {
         name: "",
         account: "",
@@ -24,6 +33,8 @@ const EditInfo = () => {
         locality: "",
         gender: "",
         organization: "",
+        work: '',
+        aspire: ''
     };
 
     const { auth, darkMode } = useSelector((state: RootStore) => state);
@@ -36,6 +47,11 @@ const EditInfo = () => {
     const handleChangeInput = (e: InputChange) => {
         const { name, value } = e.target;
         setUser({ ...user, [name]: value });
+    };
+    const handleChangename = (e: any, name: string, id: string) => {
+        const value = e.target.id;
+        setUser({ ...user, [name]: value });
+        close(id);
     };
 
     const handleChangeFile = (e: InputChange) => {
@@ -52,8 +68,8 @@ const EditInfo = () => {
         if (avatar || name || about)
             dispatch(updateUser(avatar as File, name, about, auth));
 
-        // if (gender || working || aspire || organization)
-        // dispatch(updateOtherInfo(gender, working, aspire, organization));
+        // if (gender || work || aspire || organization)
+        // dispatch(updateOtherInfo(gender, work, aspire, organization));
 
         // if (locality || city || state || country)
         // dispatch(updateLocation(locality, city, state, country));
@@ -62,12 +78,65 @@ const EditInfo = () => {
             dispatch(resetPassword(password, cf_password, auth.access_token));
     };
 
+    useEffect(() => {
+        const delayDebounce = setTimeout(async () => {
+            setNamelist([]);
+            try {
+                if (searchname?.name !== undefined) {
+                    const res = await getAPI(
+                        `search${searchname?.name}?${searchname?.name}=${searchname?.value}`
+                    );
+                    setNamelist(res.data);
+                    console.log(namelist)
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }, 400);
+        return () => clearTimeout(delayDebounce);
+    }, [searchname, user]);
 
     useEffect(() => {
-        console.log(user)
-    }, [user])
+        console.log(user);
+    }, [user]);
 
-    const { name, avatar, password, cf_password, about, gender, locality, country, state, city, organization, working, aspire, birthday } = user;
+    function showhide(id) {
+        const app = document.getElementById(id);
+        if (app) app.style.display = "block";
+    }
+    function close(id) {
+        const app = document.getElementById(id);
+        if (app) app.style.display = "none";
+    }
+    const addname = async (name: string, id: string) => {
+        if (auth.access_token) {
+            console.log(searchname?.value)
+            postAPI("add" + name, { 'work': searchname?.value }, auth.access_token).then((res) => {
+                const value = res.data._id;
+                setUser({ ...user, [name]: value });
+            }).catch((err) => {
+                console.log(err)
+            })
+            close(id)
+        }
+    };
+
+    const {
+        name,
+        avatar,
+        password,
+        cf_password,
+        about,
+        gender,
+        locality,
+        country,
+        state,
+        city,
+        organization,
+        work,
+        aspire,
+        birthday,
+    } = user;
     if (!auth.user) return <NotFound />;
 
     return (
@@ -81,16 +150,13 @@ const EditInfo = () => {
             <form onSubmit={handleSubmit} className="container">
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
-                        <div
-                            className={`modal-header bg-${isdarkMode ? "dark" : "light"}`}
-                        >
+                        <div className={`modal-header bg-${isdarkMode ? "dark" : "light"}`}>
                             <h5
-                                className={`modal-title text-${isdarkMode ? "white" : "black"
-                                    }`}
+                                className={`modal-title text-${isdarkMode ? "white" : "black"}`}
                                 id="profileModalLabel"
                             >
                                 Update Profile
-                </h5>
+              </h5>
                             <button
                                 type="button"
                                 className={`btn-close btn-close-${isdarkMode ? "white" : "dark"
@@ -103,7 +169,6 @@ const EditInfo = () => {
                         <div
                             className={`modal-body profile_info position-relative bg-${isdarkMode ? "dark" : "light"
                                 }`}
-
                         >
                             <nav>
                                 <div
@@ -122,7 +187,7 @@ const EditInfo = () => {
                                         aria-selected="true"
                                     >
                                         Basic
-                    </button>
+                  </button>
                                     <button
                                         className="nav-link"
                                         id="other-tab"
@@ -134,7 +199,7 @@ const EditInfo = () => {
                                         aria-selected="false"
                                     >
                                         More Info
-                    </button>
+                  </button>
                                     <button
                                         className="nav-link"
                                         id="location-tab"
@@ -146,7 +211,7 @@ const EditInfo = () => {
                                         aria-selected="false"
                                     >
                                         Home Town
-                    </button>
+                  </button>
                                     <button
                                         className="nav-link"
                                         id="password-tab"
@@ -158,7 +223,7 @@ const EditInfo = () => {
                                         aria-selected="false"
                                     >
                                         Password
-                    </button>
+                  </button>
                                 </div>
                             </nav>
                             <div
@@ -243,6 +308,7 @@ const EditInfo = () => {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div
                                     className="tab-pane fade"
                                     id="other"
@@ -288,28 +354,33 @@ const EditInfo = () => {
                                                 style={{ cursor: "pointer" }}
                                             ></span>
                                         </div>
+
                                         <div
                                             className={`form-group my-3 text-${isdarkMode ? "white" : "black"
                                                 }`}
                                         >
                                             <label id="worklabel" htmlFor="work">
                                                 I am a
-                        </label>
+                      </label>
                                             <input
                                                 autoComplete="off"
                                                 id="work"
                                                 name="work"
                                                 type="text"
                                                 className="form-control me-2 w-100"
-                                                placeholder="I am a ..."
-                                                onFocus={(e) => showhide()}
-                                                onChange={handleChangeInput}
-                                                defaultValue={auth.user.working}
+                                                placeholder="Teacher,Student,Bussiness man"
+                                                onFocus={(e) => {
+                                                    if (e.target.value.length < 2) return;
+                                                    showhide("work-auto");
+                                                    setSearchname({ 'name': 'work', 'value': e.target.value })
+                                                }}
+                                                onChange={e => setSearchname({ 'name': 'work', 'value': e.target.value })}
+                                                defaultValue={auth.user.work}
                                             />
                                         </div>
                                         <div
                                             className="container pt-2 px-1 w-100 rounded position-relative"
-                                            id="app"
+                                            id="work-auto"
                                             style={{
                                                 marginTop: 2,
                                                 background: "#cbcaca",
@@ -324,46 +395,50 @@ const EditInfo = () => {
                                                 className="btn btn-secondary p-1 position-absolute px-3"
                                                 style={{ right: 5 }}
                                                 onClick={(e) => {
-                                                    // close();
+                                                    close("work-auto");
                                                 }}
                                             >
                                                 &times;
-                        </span>
-                                            {/* 
-                                            {categor.length ? (
+                      </span>
+                                            {namelist.length ? (
                                                 <p style={{ color: "black" }}>Select One...</p>
                                             ) : (
                                                 <></>
                                             )}
-                                            {categor.length === 0 ? (
+                                            {namelist.length === 0 ? (
                                                 <button
                                                     className="btn btn-light py-2 m-1 pb-2"
-                                                    onClick={(e) => addcat()}
+                                                    onClick={(e) => addname("work", 'work-auto')}
                                                 >
                                                     Add Category
                                                 </button>
                                             ) : (
-                                                categor.map((category) => (
-                                                    <span
-                                                        className="btn btn-success py-1 m-1"
-                                                        key={category._id}
-                                                        id={category._id}
-                                                        onClick={(e) => {
-                                                            handleChangeCat(e);
-                                                        }}
-                                                    >
-                                                        {category.name}
-                                                    </span>
-                                                ))
-                                            )} */}
+                                                <>
+                                                    {namelist.map((name) => (
+                                                        <span
+                                                            className="btn btn-success py-1 m-1"
+                                                            key={name._id}
+                                                            id={name._id}
+
+                                                            onClick={(e) => {
+                                                                handleChangename(e, "work", "work-auto");
+                                                            }}
+                                                            style={{ textTransform: "capitalize" }}
+                                                        >
+                                                            {name.name}
+                                                        </span>
+                                                    ))}
+                                                </>
+                                            )}
                                         </div>
+
                                         <div
                                             className={`form-group my-3 text-${isdarkMode ? "white" : "black"
                                                 }`}
                                         >
                                             <label id="country" htmlFor="password">
                                                 I Want to be a
-                        </label>
+                      </label>
                                             <select className="form-control">
                                                 <option>Select Goal</option>
                                                 <option value="">India</option>
@@ -387,7 +462,7 @@ const EditInfo = () => {
                                         >
                                             <label id="country" htmlFor="country">
                                                 Country
-                        </label>
+                      </label>
                                             <select
                                                 className="form-control"
                                                 id="country"
@@ -468,7 +543,7 @@ const EditInfo = () => {
                                         {auth.user.type !== "register" && (
                                             <small className="text-danger">
                                                 * Quick login account with {auth.user.type} can't use
-                          this function *
+                        this function *
                                             </small>
                                         )}
                                         <div
@@ -488,7 +563,10 @@ const EditInfo = () => {
                                                     disabled={auth.user.type !== "register"}
                                                 />
 
-                                                <small onClick={() => setTypePass(!typePass)} style={{ color: 'black' }}>
+                                                <small
+                                                    onClick={() => setTypePass(!typePass)}
+                                                    style={{ color: "black" }}
+                                                >
                                                     {typePass ? "Hide" : "Show"}
                                                 </small>
                                             </div>
@@ -511,7 +589,10 @@ const EditInfo = () => {
                                                     disabled={auth.user.type !== "register"}
                                                 />
 
-                                                <small onClick={() => setTypeCfPass(!typeCfPass)} style={{ color: 'black' }}>
+                                                <small
+                                                    onClick={() => setTypeCfPass(!typeCfPass)}
+                                                    style={{ color: "black" }}
+                                                >
                                                     {typeCfPass ? "Hide" : "Show"}
                                                 </small>
                                             </div>
@@ -526,7 +607,7 @@ const EditInfo = () => {
                                 type="submit"
                             >
                                 Update
-                </button>
+              </button>
                         </div>
                     </div>
                 </div>

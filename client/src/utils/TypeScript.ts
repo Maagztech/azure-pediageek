@@ -47,7 +47,7 @@ export interface IUser extends IUserLogin {
   birthday?: Date;
   isdark?: Boolean;
   gender?: string;
-  working?: string;
+  work?: string;
   aspire?: string;
   organization?: string;
 }
@@ -75,7 +75,7 @@ export interface IUserProfile extends IUserRegister {
   birthday?: Date;
   isdark?: Boolean;
   gender?: string;
-  working?: string;
+  work?: string;
   aspire?: string;
   organization?: string;
 }
@@ -136,4 +136,9 @@ export interface IComment {
   reply_user?: IUser;
   comment_root?: string;
   createdAt: string;
+}
+
+export interface IName {
+  _id: string;
+  name: string;
 }

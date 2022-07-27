@@ -13,6 +13,6 @@ router.patch("/searchstate", auth, dataCtrl.searchstate);
 router.post("/addcity", auth, dataCtrl.addcity);
 router.patch("/searchcity", auth, dataCtrl.searchcity);
 router.post("/addwork", auth, dataCtrl.addwork);
-router.patch("/searchwork", auth, dataCtrl.searchwork);
+router.get("/searchwork", dataCtrl.searchwork);
 
 export default router;

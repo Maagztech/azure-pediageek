@@ -117,26 +117,27 @@ const dataCtrl = {
     }
   },
   addwork: async (req: IReqAuth, res: Response) => {
+    console.log(req.body);
     if (!req.user)
       return res.status(400).json({ msg: "Invalid Authentication." });
     try {
       const { work } = req.body;
-      const countri = new Works({ name: work });
-      const saved = countri.save();
+      const countri = new Works({ name: work, user: req.user._id });
+      const saved = await countri.save();
       res.json(saved);
-    } catch (err: any) {
-      return res.status(500).json({ msg: err.message });
+    } catch (err) {
+      console.log("err.message");
+      return res.status(500).json(err);
     }
   },
-  searchwork: async (req: IReqAuth, res: Response) => {
-    if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+  searchwork: async (req: Request, res: Response) => {
     try {
       console.log(req.query.work);
-      let works = await Works.find({
+      const works = await Works.find({
         //updated only to convert to lower case.
         name: { $regex: `${req.query.work}`.toLocaleLowerCase() },
       }).limit(10);
+      console.log(works);
       res.json(works);
     } catch (err: any) {
       return res.status(500).json({ msg: err.message });
