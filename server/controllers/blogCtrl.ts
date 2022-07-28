@@ -149,7 +149,8 @@ const blogCtrl = {
                   "nature",
                   "mountain",
                   "river",
-                  "village"
+                  "village",
+                  "nainital"
                 ],
                 path: {
                   wildcard: "*",

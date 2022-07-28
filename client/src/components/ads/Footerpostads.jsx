@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import Infeedfooter from "./Infeedabovefooter";
-import Adsfooter from "./Ads8abovefooter";
+import Adsfooter from "./Footerads";
 const Adsfoot = () => {
   const { darkMode } = useSelector((state) => state);
   const { isdarkMode } = darkMode;
 
   return (
     <div className={`home_blogs`}>
-      <Infeedfooter />
+      <Adsfooter />
+      <Adsfooter />
+      <Adsfooter />
       <Adsfooter />
     </div>
   );
