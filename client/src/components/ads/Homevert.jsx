@@ -16,15 +16,6 @@ const Homevert = () => {
     >
       
         <Hometext />
-        {/* <ins
-          className="adsbygoogle mt-3"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-3982561798373930"
-          data-ad-slot="6423172384"
-          data-ad-format="rectangle"
-          data-full-width-responsive="false"
-        ></ins>
-        <Hometext /> */}
         <ins
           className="adsbygoogle mt-2"
           style={{ display: "block" }}

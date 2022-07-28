@@ -1,89 +1,101 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, useHistory, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import { getBlogsByCategoryId } from '../../redux/actions/blogAction'
+import { getBlogsByCategoryId } from "../../redux/actions/blogAction";
 
-import { RootStore, IParams, IBlog } from '../../utils/TypeScript'
+import { RootStore, IParams, IBlog } from "../../utils/TypeScript";
 
-import Loading from '../../components/global/Loading'
-import Pagination from '../../components/global/Pagination'
-import CardVert from '../../components/cards/CardVert'
-import Referal from '../../components/global/Referal'
-import Helmetglobal from '../../components/global/Helmetglobal'
-
-
+import Loading from "../../components/global/Loading";
+import Pagination from "../../components/global/Pagination";
+import CardVert from "../../components/cards/CardVert";
+import Referal from "../../components/global/Referal";
+import Helmetglobal from "../../components/global/Helmetglobal";
+import Homevert from "../../components/ads/Homevert";
 
 const BlogsByCategory = () => {
-  const { categories, blogsCategory, darkMode } = useSelector((state: RootStore) => state)
-  const dispatch = useDispatch()
+  const { categories, blogsCategory, darkMode } = useSelector(
+    (state: RootStore) => state
+  );
+  const dispatch = useDispatch();
   const { isdarkMode } = darkMode;
-  const { slug } = useParams<IParams>()
-  const [categoryId, setCategoryId] = useState('')
-  const [blogs, setBlogs] = useState<IBlog[]>()
-  const [total, setTotal] = useState(0)
+  const { slug } = useParams<IParams>();
+  const [categoryId, setCategoryId] = useState("");
+  const [blogs, setBlogs] = useState<IBlog[]>();
+  const [total, setTotal] = useState(0);
 
-  const history = useHistory()
+  const history = useHistory();
   const { search } = history.location;
 
   useEffect(() => {
-    const category = categories.find(item => item.name === slug)
-    if (category?._id) setCategoryId(category._id)
-  }, [slug, categories])
-
+    const category = categories.find((item) => item.name === slug);
+    if (category?._id) setCategoryId(category._id);
+  }, [slug, categories]);
 
   useEffect(() => {
     if (!categoryId) return;
-    if (blogsCategory.every(item => item.id !== categoryId)) {
-      dispatch(getBlogsByCategoryId(categoryId, search))
+    if (blogsCategory.every((item) => item.id !== categoryId)) {
+      dispatch(getBlogsByCategoryId(categoryId, search));
     } else {
-      const data = blogsCategory.find(item => item.id === categoryId)
+      const data = blogsCategory.find((item) => item.id === categoryId);
       if (!data) return;
-      setBlogs(data.blogs)
-      setTotal(data.total)
+      setBlogs(data.blogs);
+      setTotal(data.total);
 
-      if (data.search) history.push(data.search)
+      if (data.search) history.push(data.search);
     }
-  }, [categoryId, blogsCategory, dispatch, search, history])
-
+  }, [categoryId, blogsCategory, dispatch, search, history]);
 
   const handlePagination = (num: number) => {
-    const search = `?page=${num}`
-    dispatch(getBlogsByCategoryId(categoryId, search))
-  }
-
+    const search = `?page=${num}`;
+    dispatch(getBlogsByCategoryId(categoryId, search));
+  };
 
   if (!blogs) return <Loading />;
   return (
     <div>
-      <Helmetglobal title={`${slug} Blogs`} description={`Blogs from ${slug} category.`} keyword={slug} />
+      <Helmetglobal
+        title={`${slug} Blogs`}
+        description={`Blogs from ${slug} category.`}
+        keyword={slug}
+      />
       <div className="blogs_category">
-        {blogs.length > 0 ? <><div className="show_blogs">
-          {
-            blogs.map(blog => (
-              <CardVert key={blog._id} blog={blog} />
-            ))
-          }
-        </div>
+        {blogs.length > 0 ? (
+          <>
+            <div className="show_blogs">
+              {blogs.map((blog, index) => (
+                <>
+                  <CardVert key={blog._id} blog={blog} />
+                  {index % 3 === 0 && <Homevert />}
+                </>
+              ))}
+            </div>
 
-          {
-            total > 1 &&
-            <Pagination
-              total={total}
-              callback={handlePagination}
-            />
-          }
-        </> : <div style={{ height: '80vh', paddingTop: '30vh' }}>
-          <div className=' container text-center'>
-            <h3 className={`my-3 F text-${isdarkMode ? 'white' : 'black'}`}>No Blogs</h3>
-            <Link to="/create_blog">
-              <button className={`btn btn-primary text-${isdarkMode ? 'white' : 'black'}`}>Create One</button></Link>
+            {total > 1 && (
+              <Pagination total={total} callback={handlePagination} />
+            )}
+          </>
+        ) : (
+          <div style={{ height: "80vh", paddingTop: "30vh" }}>
+            <div className=" container text-center">
+              <h3 className={`my-3 F text-${isdarkMode ? "white" : "black"}`}>
+                No Blogs
+              </h3>
+              <Link to="/create_blog">
+                <button
+                  className={`btn btn-primary text-${
+                    isdarkMode ? "white" : "black"
+                  }`}
+                >
+                  Create One
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
-        }
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BlogsByCategory
+export default BlogsByCategory;
