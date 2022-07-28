@@ -8,6 +8,9 @@ const Adsfoot = () => {
   return (
     <div className={`home_blogs`}>
       <Adsfooter />
+      <Adsfooter />
+      <Adsfooter />
+      <Adsfooter />
     </div>
   );
 };
