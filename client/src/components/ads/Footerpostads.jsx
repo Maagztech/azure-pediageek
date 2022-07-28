@@ -10,6 +10,12 @@ const Adsfoot = () => {
     <div className={`home_blogs`}>
       <Infeedfooter />
       <Adsfooter />
+      <Infeedfooter />
+      <Adsfooter />
+      <Infeedfooter />
+      <Adsfooter />
+      <Infeedfooter />
+      <Adsfooter />
     </div>
   );
 };
