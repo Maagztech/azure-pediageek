@@ -76,7 +76,7 @@ const BlogsByCategory = () => {
             )}
           </>
         ) : (
-          <div style={{ height: "80vh", paddingTop: "30vh" }}>
+          <div style={{ height: "50vh", paddingTop: "30vh" }}>
             <div className=" container text-center">
               <h3 className={`my-3 F text-${isdarkMode ? "white" : "black"}`}>
                 No Blogs
