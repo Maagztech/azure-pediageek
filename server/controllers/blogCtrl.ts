@@ -133,7 +133,6 @@ const blogCtrl = {
 
         res.json({ blogs, total });
       } else {
-        
         let Data = await Blogs.aggregate([
           {
             $search: {
@@ -141,11 +140,16 @@ const blogCtrl = {
               text: {
                 query: [
                   "monkypox",
-                  "Apj abdul kalam",     
-                  "news",
-                  "india",
-                  "sports news",
-                  "politics",                 
+                  "nature",
+                  "hepatitits",
+                  "world nature conservation",
+                  "greenary",
+                  "small things matters",
+                  "natural beauty",
+                  "nature",
+                  "mountain",
+                  "river",
+                  "village"
                 ],
                 path: {
                   wildcard: "*",
@@ -160,7 +164,7 @@ const blogCtrl = {
               let: { user_id: "$user" },
               pipeline: [
                 { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                
+
                 {
                   $project: {
                     password: 0,
@@ -177,7 +181,7 @@ const blogCtrl = {
           { $unwind: "$user" },
           // { $match: { $expr: { $eq: ["$user.role", "garnet"] } } },
           // Sorting
-          { $limit: limit },
+          { $limit: limit + 5 },
           {
             $project: {
               earn: 0,

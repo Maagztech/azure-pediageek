@@ -10,6 +10,7 @@ import Referal from "../components/global/Referal";
 import { Link } from "react-router-dom";
 import Homevert from "../components/ads/Homevert";
 import Aibox from "../components/global/Preferance";
+import Todays from "../components/global/Todays";
 
 const Home = () => {
   const { homeBlogs, categories, darkMode, auth } = useSelector(
@@ -35,30 +36,8 @@ const Home = () => {
   return (
     <>
       <div className="home_page">
-        <div className="card mb-3" style={{ maxWidth: "600px" }}>
-          <div className="row g-0">
-            <div className="col-md-4">
-              <img
-                src="https://images.thequint.com/thequint%2F2015-07%2F97be9998-56b5-4ad4-84fa-e05566f760e5%2FQ%409%20Hero%20Image.jpg?rect=0%2C0%2C960%2C540&amp;auto=format%2Ccompress&amp;fmt=webp&amp;width=720"
-                className="img-fluid rounded-start"
-                alt="APJ Abdul Kalam's Death Anniversary"
-              />
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <p className="badge bg-primary">On this day in India History</p>
-                <h5 className="card-title">
-                  <strong>APJ Abdul Kalam's Death Anniversary ! 27th July</strong>
-                </h5>
-                <h6 className="card-text" style={{ color: "black" }}>
-
-                  Some of the brightest minds in the country can be found on the
-                  last benches of the classroom. — Dr APJ Abdul Kalam.
-                  <Link to="/login?create_blog">Create Post</Link>
-                </h6>
-              </div>
-            </div>
-          </div>
+        <div className="row px-2 justify-content-between">
+          <Todays />
         </div>
         <Referal />
         <Helmetglobal

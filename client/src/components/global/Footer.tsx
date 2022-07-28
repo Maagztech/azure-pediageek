@@ -1,18 +1,29 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootStore } from "../../utils/TypeScript";
+import Adsfoot from "../ads/Footerpostads";
 
 const Footer = () => {
-
   const { auth, darkMode } = useSelector((state: RootStore) => state);
   const { isdarkMode } = darkMode;
   return (
     <>
-      <div className={`text-center bg-${isdarkMode} text-${isdarkMode ? 'white' : 'black'} py-4`} >
-        <footer className={`text-center text-lg-start text-muted text-${isdarkMode ? 'white' : 'black'} `}  >
+      <Adsfoot />
+      <div
+        className={`text-center bg-${isdarkMode} text-${
+          isdarkMode ? "white" : "black"
+        } py-4`}
+      >
+        <footer
+          className={`text-center text-lg-start text-muted text-${
+            isdarkMode ? "white" : "black"
+          } `}
+        >
           <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom ">
-            <div className="me-5 d-none d-lg-block " >
-              <span className={`text-${isdarkMode ? 'white' : 'black'}`}>Get connected with us on social networks:</span>
+            <div className="me-5 d-none d-lg-block ">
+              <span className={`text-${isdarkMode ? "white" : "black"}`}>
+                Get connected with us on social networks:
+              </span>
             </div>
 
             <div>
@@ -33,7 +44,11 @@ const Footer = () => {
                 className="me-4 text-reset"
                 target="_blank"
               >
-                <i className={`fab fa-linkedin text-${isdarkMode ? 'primary' : 'white'}`}></i>
+                <i
+                  className={`fab fa-linkedin text-${
+                    isdarkMode ? "primary" : "white"
+                  }`}
+                ></i>
               </a>
               {/* <a href="" className="me-4 text-reset" target="_blank">
               <i className="fab fa-github"></i>
@@ -45,73 +60,104 @@ const Footer = () => {
             <div className="container text-center text-md-start mt-5">
               <div className="row mt-3">
                 <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                  <h6 className={`text-uppercase fw-bold mb-4  text-${isdarkMode ? 'white' : 'black'}`}>
+                  <h6
+                    className={`text-uppercase fw-bold mb-4  text-${
+                      isdarkMode ? "white" : "black"
+                    }`}
+                  >
                     <img
                       src="/logo192.png"
                       alt="pediageek logo"
                       width={25}
                       height={25}
                     />
-                  Pedia<span className="text-success ">Geek</span>
+                    Pedia<span className="text-success ">Geek</span>
                   </h6>
-                  <p className={`text-${isdarkMode ? 'white' : 'black'}`}>
+                  <p className={`text-${isdarkMode ? "white" : "black"}`}>
                     PediaGeek is the best way to express your idea to the World.
-
-                </p>
+                  </p>
                 </div>
 
-                <div className={`"col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-${isdarkMode ? 'white' : 'black'}`}>
+                <div
+                  className={`"col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 text-${
+                    isdarkMode ? "white" : "black"
+                  }`}
+                >
                   <h6 className="text-uppercase fw-bold mb-4 ">Products</h6>
                   <p>
-                    <Link className="text-reset text-capitalize text-decoration-none" to="/">
+                    <Link
+                      className="text-reset text-capitalize text-decoration-none"
+                      to="/"
+                    >
                       Home
-                  </Link>
+                    </Link>
                   </p>
                   <p>
-                    <Link className="text-reset text-capitalize text-decoration-none" to={auth.access_token ? '/create_blog' : '/login  '}>
+                    <Link
+                      className="text-reset text-capitalize text-decoration-none"
+                      to={auth.access_token ? "/create_blog" : "/login  "}
+                    >
                       Create Blog
-                  </Link>
+                    </Link>
                   </p>
                   <p>
-                    <Link className="text-reset text-capitalize text-decoration-none" to="/blog/629d49634487380016bd44a7">
+                    <Link
+                      className="text-reset text-capitalize text-decoration-none"
+                      to="/blog/629d49634487380016bd44a7"
+                    >
                       Writer Policy
-                  </Link>
-
+                    </Link>
                   </p>
-
                 </div>
 
-                <div className={`col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-${isdarkMode ? 'white' : 'black'}`}>
+                <div
+                  className={`col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 text-${
+                    isdarkMode ? "white" : "black"
+                  }`}
+                >
                   <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
                   <p>
-                    <Link to='/about_us' className="text-reset text-capitalize text-decoration-none">
+                    <Link
+                      to="/about_us"
+                      className="text-reset text-capitalize text-decoration-none"
+                    >
                       About Us
-                  </Link>
+                    </Link>
                   </p>
                   <p>
-                    <Link to='/privacy_policy' className="text-reset text-capitalize text-decoration-none">
+                    <Link
+                      to="/privacy_policy"
+                      className="text-reset text-capitalize text-decoration-none"
+                    >
                       Privacy Policy
-                  </Link>
+                    </Link>
                   </p>
                   <p>
-                    <Link to='/disclaimer' className="text-reset text-capitalize text-decoration-none">
+                    <Link
+                      to="/disclaimer"
+                      className="text-reset text-capitalize text-decoration-none"
+                    >
                       Disclaimer
-                  </Link>
+                    </Link>
                   </p>
-
                 </div>
 
-                <div className={`col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 text-${isdarkMode ? 'white' : 'black'}`}>
+                <div
+                  className={`col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 text-${
+                    isdarkMode ? "white" : "black"
+                  }`}
+                >
                   <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                   <p>
                     <i className="fas fa-home me-3"></i> India
-                </p>
+                  </p>
                   <p>
                     <i className="fas fa-envelope me-3"></i>
-                  contact@pediageek.com                </p>
+                    contact@pediageek.com{" "}
+                  </p>
                   <p>
                     <i className="fas fa-phone-office me-3"></i> +91 8114694441
-                </p>
+                  </p>
                 </div>
               </div>
             </div>
@@ -119,16 +165,18 @@ const Footer = () => {
 
           <div
             className="text-center p-4"
-            style={{ color: isdarkMode ? 'white' : 'black' }}
+            style={{ color: isdarkMode ? "white" : "black" }}
           >
             © 2022 Copyright:
-          <a className="text-reset fw-bold text-capitalize text-decoration-none" href="http://pediageek.com/">
+            <a
+              className="text-reset fw-bold text-capitalize text-decoration-none"
+              href="http://pediageek.com/"
+            >
               PediaGeek
-          </a>
+            </a>
           </div>
         </footer>
       </div>
-
     </>
   );
 };
