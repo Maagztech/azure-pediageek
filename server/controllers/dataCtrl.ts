@@ -143,5 +143,15 @@ const dataCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  updateotherinfo: async (req: IReqAuth, res: Response) => {
+    try {
+      const works = await Works.findOneAndUpdate(
+        { _id: req.user?._id },
+        {},
+        {}
+      );
+      res.json(works);
+    } catch (error) {}
+  },
 };
 export default dataCtrl;

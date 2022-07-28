@@ -14,5 +14,7 @@ router.post("/addcity", auth, dataCtrl.addcity);
 router.patch("/searchcity", auth, dataCtrl.searchcity);
 router.post("/addwork", auth, dataCtrl.addwork);
 router.get("/searchwork", dataCtrl.searchwork);
-
+router.post("/addaspire", auth, dataCtrl.addwork);
+router.get("/searchaspire", dataCtrl.searchwork);
+router.post("updatotherinfo", auth, dataCtrl.updateOtherinfo);
 export default router;

@@ -72,11 +72,11 @@ export interface IUserProfile extends IUserRegister {
   country?: string;
   language?: string[];
   interests?: string[];
-  birthday?: Date;
+  birthday: Date;
   isdark?: Boolean;
-  gender?: string;
-  work?: string;
-  aspire?: string;
+  gender: string;
+  work: string;
+  aspire: string;
   organization?: string;
 }
 
