@@ -25,7 +25,7 @@ const Todays = () => {
             }}
           >
             <img
-              src="https://source.unsplash.com/featured?nature,greenry,forest"
+              src="https://res.cloudinary.com/aababcab/image/upload/v1658985442/blog/photo-1658583353717-5136662cd928_tkfsvr.jpg"
               className="w-100 h-100"
               alt="thumbnail"
               style={{ objectFit: "cover" }}
@@ -69,7 +69,7 @@ const Todays = () => {
             }}
           >
             <img
-              src="https://source.unsplash.com/featured?hospital"
+              src="https://res.cloudinary.com/aababcab/image/upload/v1658985605/blog/photo-1578307870387-edd3bcf5a976_vamdmb.jpg"
               className="w-100 h-100"
               alt="thumbnail"
               style={{ objectFit: "cover" }}
