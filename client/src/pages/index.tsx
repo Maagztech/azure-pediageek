@@ -67,7 +67,6 @@ const Home = () => {
               <>
                 <CardVert key={index} blog={blog} />
                 {index % 6 === 0 && (
-                  //&& window.location.origin !== "http://localhost:3000"
                   <Homevert />
                 )}
               </>
