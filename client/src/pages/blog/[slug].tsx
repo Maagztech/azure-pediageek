@@ -45,17 +45,7 @@ const DetailBlog = () => {
     };
   }, [socket, id]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  if (loading)
-    return (
-      <>
-        <Helmetglobal title="Loading..." keyword="Loading" />
-        <Loading />
-      </>
-    );
+  
   return (
     <div className="my-4">
       {blog &&
