@@ -22,8 +22,9 @@ const preferanceSchema = new mongoose.Schema({
   birthday: {
     type: Date,
   },
-  now: { type: mongoose.Types.ObjectId, ref: "work" },
-  then: { type: mongoose.Types.ObjectId, ref: "work" },
+  work: { type: mongoose.Types.ObjectId, ref: "work" },
+  aspire: { type: mongoose.Types.ObjectId, ref: "work" },
+  gender: { type: String, trim: true, length: 1 },
 });
 
 export default mongoose.model<IPreferance>("prefernce", preferanceSchema);

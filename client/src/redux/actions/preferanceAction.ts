@@ -41,6 +41,12 @@ export const updateOtherInfo =
     const result = await checkTokenExp(auth.access_token, dispatch);
     const access_token = result ? result : auth.access_token;
     try {
+      console.log({
+        work: work ? work : auth.user.work,
+        gender: gender ? gender : auth.user.gender,
+        aspire: aspire ? aspire : auth.user.aspire,
+        birthday: birthday ? birthday : auth.user.birthday,
+      });
       const res = await postAPI(
         "updateotherinfo",
         {

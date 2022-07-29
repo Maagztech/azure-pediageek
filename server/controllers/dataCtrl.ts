@@ -143,12 +143,21 @@ const dataCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  updateotherinfo: async (req: IReqAuth, res: Response) => {
+  updateOtherinfo: async (req: IReqAuth, res: Response) => {
+    console.log(req.body);
     try {
       const works = await Works.findOneAndUpdate(
         { _id: req.user?._id },
-        {},
-        {}
+        {
+          work: req.body.work,
+          aspire: req.body.aspire,
+          birthday: req.body.birthday,
+          gender: req.body.gender,
+        },
+        {
+          new: true,
+          upsert: true,
+        }
       );
       res.json(works);
     } catch (error) {}
