@@ -139,18 +139,12 @@ const blogCtrl = {
               index: "bogs_search",
               text: {
                 query: [
-                  "monkypox",
-                  "nature",
-                  "hepatitits",
-                  "world nature conservation",
-                  "greenary",
-                  "small things matters",
-                  "natural beauty",
-                  "nature",
-                  "mountain",
-                  "river",
-                  "village",
-                  "nainital"
+                  "international tiger day",
+                  "tiger day",
+                  "tiger",
+                  "rain",
+                  "rain moviews",
+                  "monsoon",
                 ],
                 path: {
                   wildcard: "*",

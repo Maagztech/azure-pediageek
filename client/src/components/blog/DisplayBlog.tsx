@@ -57,6 +57,10 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [blog]);
+
+  useEffect(() => {
     timer.start();
     setTimeout(function () {
       putAPI("addv", { blog });
@@ -82,7 +86,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
       <div style={{ flex: 9 }}>
         <div style={{ maxWidth: 850, minWidth: 250 }}>
           <div className="conatainer">
-            < Abovepost imageurl={blog.thumbnail} imagealt={blog.title} />
+            <Abovepost imageurl={blog.thumbnail} imagealt={blog.title} />
           </div>
           <h2
             className="text-center my-3 text-capitalize fs-1"
@@ -98,7 +102,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
               dangerouslySetInnerHTML={{ __html: blog.content }}
               style={{
                 fontSize: "18px",
-                wordBreak: 'break-word',
+                wordBreak: "break-word",
                 color: isdarkMode ? "white" : "black",
               }}
             />
@@ -126,15 +130,16 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
           {comments.total > 1 && (
             <Pagination total={comments.total} callback={handlePagination} />
           )}
-          <div className="mt-2" style={{ borderRadius: '10px', overflow: 'hidden' }}>
+          <div
+            className="mt-2"
+            style={{ borderRadius: "10px", overflow: "hidden" }}
+          >
             <Footerads />
           </div>
         </div>
       </div>
       <Sidebar blog={blog} />
     </div>
-
-
   );
 };
 
