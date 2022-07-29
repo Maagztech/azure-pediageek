@@ -63,9 +63,8 @@ export const updateOtherInfo =
       );
       dispatch({
         type: GET_HOME_BLOGS,
-        payload: { ...res.data },
+        payload: { ...blog.data },
       });
-
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });

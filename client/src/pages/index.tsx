@@ -21,7 +21,8 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHomeBlogs(`?page=${1}`, auth));
+    if (homeBlogs.blogs.length === 0)
+      dispatch(getHomeBlogs(`?page=${1}`, auth));
   }, []);
   useEffect(() => {
     setHasMore(homeBlogs.count <= homeBlogs.total);
@@ -66,9 +67,7 @@ const Home = () => {
             {homeBlogs.blogs.map((blog, index) => (
               <>
                 <CardVert key={index} blog={blog} />
-                {index % 6 === 0 && (
-                  <Homevert />
-                )}
+                {index % 6 === 0 && <Homevert />}
               </>
             ))}
           </div>

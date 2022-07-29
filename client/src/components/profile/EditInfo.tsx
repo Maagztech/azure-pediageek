@@ -382,7 +382,6 @@ const EditInfo = () => {
                         className="form-control me-2 w-100"
                         placeholder="Teacher,Student,Bussiness man"
                         onFocus={(e) => {
-                          if (e.target.value.length < 2) return;
                           showhide("work-auto");
                           setSearchname({
                             name: "work",
@@ -464,7 +463,6 @@ const EditInfo = () => {
                         className="form-control me-2 w-100"
                         placeholder="Teacher,Student,Bussiness man"
                         onFocus={(e) => {
-                          if (e.target.value.length < 2) return;
                           showhide("aspire-auto");
                           setSearchname({
                             name: "work",
